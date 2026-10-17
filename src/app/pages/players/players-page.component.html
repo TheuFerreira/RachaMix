@@ -5,10 +5,11 @@
     <button class="icon-btn">⚙</button>
   </div>
   <div class="segmented">
-    <button class="active">Todos <b>14</b></button
-    ><button>
+    <button [class.active]="activeSection === 'all'" (click)="setSection('all')">
+      Todos <b>({{ players.length }})</b></button
+    ><button [class.active]="activeSection === 'line'" (click)="setSection('line')">
       Linha <b>({{ linePlayers.length }})</b></button
-    ><button>
+    ><button [class.active]="activeSection === 'goalkeeper'" (click)="setSection('goalkeeper')">
       Goleiros <b>({{ goalkeepers.length }})</b>
     </button>
   </div>
@@ -22,6 +23,7 @@
       />
     </div>
   </div>
+  @if (activeSection === 'all' || activeSection === 'line') {
   <div class="player-group">
     <div class="group-heading line-color">
       <span>🏃</span
@@ -40,12 +42,14 @@
     }
     <div class="see-all">Ver todos ({{ linePlayers.length }})　⌄</div>
   </div>
+  }
+  @if (activeSection === 'all' || activeSection === 'goalkeeper') {
   <div class="player-group">
     <div class="group-heading keeper-color">
       <span>🖐</span><strong>Goleiros ({{ goalkeepers.length }})</strong
       ><span>›</span>
     </div>
-    @for (player of goalkeepers; track player.name) {
+    @for (player of filteredGoalkeepers; track player.name) {
       <div class="player-row">
         <span class="avatar">{{ player.initials }}</span
         ><span class="player-name">{{ player.name }}</span
@@ -55,6 +59,7 @@
     }
     <div class="see-all">Ver todos ({{ goalkeepers.length }})　⌄</div>
   </div>
+  }
   <button class="primary-btn add-player" (click)="add.emit()">
     ＋　Adicionar jogador
   </button>

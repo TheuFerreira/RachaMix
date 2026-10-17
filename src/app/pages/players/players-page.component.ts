@@ -16,10 +16,25 @@ export class PlayersPageComponent {
   @Output() add = new EventEmitter<void>();
 
   search = '';
+  activeSection: 'all' | 'line' | 'goalkeeper' = 'all';
 
   get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
   get filteredPlayers(): Player[] {
-    return this.players.filter((player) => player.name.toLowerCase().includes(this.search.toLowerCase()));
+    const search = this.search.toLowerCase();
+
+    return this.players.filter((player) => {
+      const matchesSection = this.activeSection === 'all' || player.type === this.activeSection;
+      const matchesSearch = player.name.toLowerCase().includes(search);
+      return matchesSection && matchesSearch;
+    });
+  }
+
+  get filteredGoalkeepers(): Player[] {
+    return this.filteredPlayers.filter((player) => player.type === 'goalkeeper');
+  }
+
+  setSection(section: 'all' | 'line' | 'goalkeeper'): void {
+    this.activeSection = section;
   }
 }
