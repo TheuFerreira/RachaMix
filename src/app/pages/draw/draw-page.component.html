@@ -20,7 +20,7 @@
     <div class="card-heading keeper-color">
       <span>🖐</span>
       <div>
-        <strong>Goleiros em revezamento ({{ goalkeepers.length }})</strong
+        <strong>Goleiros em revezamento ({{ selectedGoalkeepers }})</strong
         ><small
           >Estes goleiros vão se revezar entre as partidas e não entram nos
           times fixos.</small
@@ -29,29 +29,29 @@
       <span>ⓘ</span>
     </div>
     @for (player of goalkeepers; track player.name) {
-      <div class="player-row">
+      <button class="player-row" [class.player-selected]="player.selected" (click)="togglePlayer(player)" [attr.aria-pressed]="player.selected" [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name">
         <span class="avatar">{{ player.initials }}</span
         ><span class="player-name">{{ player.name }}</span
         ><span class="tag keeper-tag">🖐 Goleiro</span
         ><span class="check">✓</span>
-      </div>
+      </button>
     }
   </div>
   <div class="selection-card">
     <div class="card-heading line-color">
       <span>🏃</span>
       <div>
-        <strong>Jogadores de linha ({{ linePlayers.length }})</strong
+        <strong>Jogadores de linha ({{ selectedLinePlayers }})</strong
         ><small>Apenas jogadores de linha serão distribuídos nos times.</small>
       </div>
       <span>ⓘ</span>
     </div>
     @for (player of linePlayers; track player.name) {
-      <div class="player-row">
+      <button class="player-row" [class.player-selected]="player.selected" (click)="togglePlayer(player)" [attr.aria-pressed]="player.selected" [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name">
         <span class="avatar">{{ player.initials }}</span
         ><span class="player-name">{{ player.name }}</span
         ><span class="tag line-tag">🏃 Linha</span><span class="check">✓</span>
-      </div>
+      </button>
     }
   </div>
   <button class="primary-btn draw-action" (click)="generate.emit()">

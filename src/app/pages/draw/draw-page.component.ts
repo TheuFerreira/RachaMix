@@ -17,4 +17,10 @@ export class DrawPageComponent {
 
   get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
+  get selectedLinePlayers(): number { return this.linePlayers.filter((player) => player.selected).length; }
+  get selectedGoalkeepers(): number { return this.goalkeepers.filter((player) => player.selected).length; }
+
+  togglePlayer(player: Player): void {
+    player.selected = !player.selected;
+  }
 }
