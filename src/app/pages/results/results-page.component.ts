@@ -12,9 +12,9 @@ import { Player } from '../../models';
 })
 export class ResultsPageComponent {
   @Input({ required: true }) players: Player[] = [];
+  @Input({ required: true }) teams: Player[][] = [];
+  @Input({ required: true }) goalkeepers: Player[] = [];
   @Output() back = new EventEmitter<void>();
   @Output() redraw = new EventEmitter<void>();
 
-  get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
-  get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
 }

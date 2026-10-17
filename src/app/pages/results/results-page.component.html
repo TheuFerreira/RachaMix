@@ -2,47 +2,57 @@
   <div class="screen-title centered">
     <button class="back-btn" (click)="back.emit()">‹</button>
     <h1>Times Sorteados</h1>
-    <button class="icon-btn">⟳</button>
+    <button class="icon-btn" type="button">⟳</button>
   </div>
+
   <div class="rotation-card">
     <div class="card-heading keeper-color">
       <span>🖐</span>
       <div>
-        <strong>Goleiros em revezamento <sup>ⓘ</sup></strong
-        ><small>Estes goleiros vão se revezar entre as partidas.</small
-        ><small>Eles não pertencem a um time fixo.</small>
+        <strong>Goleiros em revezamento <sup>ⓘ</sup></strong>
+        <small>Estes goleiros vão se revezar entre as partidas.</small>
+        <small>Eles não pertencem a um time fixo.</small>
       </div>
     </div>
     @for (player of goalkeepers; track player.name; let i = $index) {
       <div class="player-row">
-        <span class="rank">{{ i + 1 }}</span
-        ><span class="player-name">{{ player.name }}</span
-        ><span class="tag keeper-tag">Goleiro</span>
+        <span class="rank">{{ i + 1 }}</span>
+        <span class="player-name">{{ player.name }}</span>
+        <span class="tag keeper-tag">Goleiro</span>
       </div>
     }
     <div class="rotation-note">⟳　Ordem de revezamento entre as partidas</div>
   </div>
-  @for (team of [1, 2]; track team) {
-    <div class="team-card" [class.team-two]="team === 2">
+
+  @for (teamPlayers of teams; track $index; let teamIndex = $index) {
+    <div
+      class="team-card"
+      [class.team-one]="teamIndex === 0"
+      [class.team-two]="teamIndex === 1"
+      [class.team-three]="teamIndex === 2"
+      [class.team-four]="teamIndex === 3"
+      [class.team-five]="teamIndex === 4"
+      [class.team-six]="teamIndex === 5"
+      [class.team-extra]="teamIndex > 5"
+    >
       <div class="team-heading">
-        <strong>♟　Time {{ team }}</strong
-        ><span>{{ linePlayers.length / 2 | number: "1.0-0" }} jogadores</span>
+        <strong>♟　Time {{ teamIndex + 1 }}</strong>
+        <span>{{ teamPlayers.length }} jogadores</span>
       </div>
-      @for (
-        player of linePlayers.slice((team - 1) * 3, team * 3);
-        track player.name
-      ) {
+      @for (player of teamPlayers; track player.name) {
         <div class="player-row">
-          <span class="round-icon">🏃</span
-          ><span class="player-name">{{ player.name }}</span
-          ><span class="tag line-tag">Linha</span>
+          <span class="round-icon">🏃</span>
+          <span class="player-name">{{ player.name }}</span>
+          <span class="tag line-tag">Linha</span>
         </div>
       }
     </div>
   }
+
   <div class="result-actions">
-    <button class="secondary-btn" (click)="redraw.emit()">
-      ⟳　Sortear Novamente</button
-    ><button class="primary-btn share-btn">⌯　Compartilhar</button>
+    <button class="secondary-btn" type="button" (click)="redraw.emit()">
+      ⟳　Sortear Novamente
+    </button>
+    <button class="primary-btn share-btn" type="button">⌯　Compartilhar</button>
   </div>
 </section>

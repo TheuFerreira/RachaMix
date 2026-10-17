@@ -21,10 +21,39 @@ export class AppComponent {
     { name: 'Matheus', initials: 'MA', type: 'goalkeeper', selected: true }, { name: 'Fernando', initials: 'FE', type: 'goalkeeper', selected: true },
     { name: 'Vinicius', initials: 'VI', type: 'goalkeeper', selected: true }
   ];
+  drawnTeams: Player[][] = [];
+  drawnGoalkeepers: Player[] = [];
 
   setTab(tab: Tab): void { this.activeTab = tab; }
 
   addPlayer(): void {
     this.players = [...this.players, { name: 'Novo jogador', initials: 'NJ', type: 'line', selected: true }];
+  }
+
+  generateDraw(playersPerTeam: number): void {
+    const selectedLinePlayers = this.shuffle(
+      this.players.filter((player) => player.type === 'line' && player.selected)
+    );
+    const selectedGoalkeepers = this.shuffle(
+      this.players.filter((player) => player.type === 'goalkeeper' && player.selected)
+    );
+
+    const teamCount = Math.ceil(selectedLinePlayers.length / playersPerTeam);
+    this.drawnTeams = Array.from({ length: teamCount }, () => [] as Player[]);
+    selectedLinePlayers.forEach((player, index) => {
+      this.drawnTeams[index % teamCount].push(player);
+    });
+    this.drawnGoalkeepers = selectedGoalkeepers;
+  }
+
+  private shuffle(players: Player[]): Player[] {
+    const shuffled = [...players];
+
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+
+    return shuffled;
   }
 }

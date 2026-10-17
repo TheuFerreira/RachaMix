@@ -13,8 +13,8 @@ import { Player } from '../../models';
 export class DrawPageComponent {
   @Input({ required: true }) players: Player[] = [];
   @Output() back = new EventEmitter<void>();
-  @Output() generate = new EventEmitter<void>();
-  teams = 2;
+  @Output() generate = new EventEmitter<number>();
+  playersPerTeam = 2;
 
   get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }

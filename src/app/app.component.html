@@ -16,12 +16,14 @@
       <app-draw-page
         [players]="players"
         (back)="setTab('players')"
-        (generate)="setTab('history')"
+        (generate)="generateDraw($event); setTab('history')"
       />
     }
     @if (activeTab === "history") {
       <app-results-page
         [players]="players"
+        [teams]="drawnTeams"
+        [goalkeepers]="drawnGoalkeepers"
         (back)="setTab('draw')"
         (redraw)="setTab('draw')"
       />
@@ -42,7 +44,7 @@
       [class.active]="activeTab === 'history'"
       (click)="setTab('history')"
     >
-      <span>◷</span>Histórico
+      <span>◷</span>Times sorteados
     </button>
   </nav>
 </main>
