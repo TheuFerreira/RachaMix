@@ -1,0 +1,150 @@
+:host {
+  display: block;
+}
+
+.rotation-card {
+  background: linear-gradient(145deg, #121d23, #0c1418);
+  border: 1px solid #1c2a30;
+  border-radius: 11px;
+  margin-bottom: 9px;
+  overflow: hidden;
+  padding: 0 0 4px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 11px 7px;
+  font-size: 12px;
+}
+.card-heading strong {
+  flex: 1;
+}
+.keeper-color {
+  color: #36a5ff;
+}
+.line-color {
+  color: #e9f2f4;
+}
+.rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #202b35;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+.rotation-note {
+  font-size: 9px;
+  color: #aeb9bd;
+  text-align: center;
+  padding: 8px 4px 4px;
+}
+
+.team-card {
+  border: 2px solid var(--blue);
+  border-radius: 11px;
+  margin: 8px 0;
+  background: linear-gradient(145deg, #101d27, #071116);
+  overflow: hidden;
+}
+.team-two {
+  border-color: var(--red);
+  background: linear-gradient(145deg, #241113, #120b0d);
+}
+.team-heading {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  color: #1d9aff;
+}
+.team-two .team-heading {
+  color: #ff3044;
+}
+.team-heading strong {
+  flex: 1;
+  font-size: 14px;
+}
+.team-heading span {
+  background: #162d3b;
+  border-radius: 7px;
+  padding: 4px 7px;
+  font-size: 9px;
+  color: #e7f2f5;
+}
+.team-two .team-heading span {
+  background: #381c20;
+}
+.round-icon {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #053d2a;
+  font-size: 14px;
+}
+
+.player-row {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border-top: 1px solid #1b292f;
+  font-size: 10px;
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #717988, #303640);
+  font-size: 11px;
+  color: #edf1f2;
+}
+.player-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tag {
+  border-radius: 8px;
+  padding: 5px 7px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.line-tag {
+  color: #80ffba;
+  background: #063f28;
+}
+.keeper-tag {
+  color: #72c5ff;
+  background: #07375c;
+}
+
+.result-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+.secondary-btn,
+.share-btn {
+  flex: 1;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.secondary-btn {
+  background: #17242b;
+  border: 1px solid #283840;
+}
+.share-btn {
+  flex: 1.05;
+}

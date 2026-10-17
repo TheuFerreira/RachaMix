@@ -1,0 +1,167 @@
+:host {
+  display: block;
+}
+
+.info-card,
+.selection-card {
+  background: linear-gradient(145deg, #121d23, #0c1418);
+  border: 1px solid #1c2a30;
+  border-radius: 11px;
+  margin-bottom: 9px;
+  overflow: hidden;
+}
+
+.info-card {
+  padding: 11px;
+
+  p {
+    font-size: 11px;
+    margin: 0 0 8px;
+  }
+  small {
+    display: block;
+    color: #a9b5b9;
+    font-size: 9px;
+    margin-top: 9px;
+    line-height: 1.35;
+  }
+}
+
+.number-picker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  button {
+    width: 42px;
+    height: 37px;
+    border-radius: 9px;
+    background: #202d38;
+    font-size: 24px;
+  }
+  strong {
+    flex: 1;
+    text-align: center;
+    background: #091114;
+    border: 1px solid #17252c;
+    border-radius: 8px;
+    height: 37px;
+    line-height: 35px;
+    font-size: 18px;
+  }
+}
+
+.selection-card {
+  padding-bottom: 4px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 11px;
+  font-size: 12px;
+
+  strong {
+    flex: 1;
+  }
+  small {
+    display: block;
+    color: #c0c9cd;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 3px;
+  }
+}
+
+.keeper-color {
+  color: #36a5ff;
+}
+.line-color {
+  color: #e9f2f4;
+}
+
+.player-row {
+  width: 100%;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border-top: 1px solid #1b292f;
+  background: transparent;
+  text-align: left;
+  font-size: 10px;
+  opacity: 0.55;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+
+  &:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: -2px;
+  }
+}
+
+.player-selected {
+  opacity: 1;
+  background: #10251d;
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #717988, #303640);
+  font-size: 11px;
+  color: #edf1f2;
+}
+.player-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tag {
+  border-radius: 8px;
+  padding: 5px 7px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.line-tag {
+  color: #80ffba;
+  background: #063f28;
+}
+.keeper-tag {
+  color: #72c5ff;
+  background: #07375c;
+}
+.check {
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  background: #26343a;
+  color: #8b9aa0;
+  border-radius: 4px;
+  font-weight: 800;
+}
+.player-selected .check {
+  background: #4bf49d;
+  color: #062a18;
+}
+
+.primary-btn {
+  background: linear-gradient(100deg, #47e78b, #72f9a6);
+  color: #052115;
+  font-weight: 700;
+  border-radius: 10px;
+  height: 39px;
+}
+.draw-action {
+  width: 100%;
+  margin-top: 1px;
+}

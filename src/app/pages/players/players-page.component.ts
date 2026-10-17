@@ -8,6 +8,7 @@ import { Player } from '../../models';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './players-page.component.html',
+  styleUrl: './players-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayersPageComponent {

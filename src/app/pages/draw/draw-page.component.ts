@@ -7,6 +7,7 @@ import { Player } from '../../models';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './draw-page.component.html',
+  styleUrl: './draw-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawPageComponent {

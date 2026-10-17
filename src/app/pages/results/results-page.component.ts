@@ -7,6 +7,7 @@ import { Player } from '../../models';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './results-page.component.html',
+  styleUrl: './results-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultsPageComponent {
