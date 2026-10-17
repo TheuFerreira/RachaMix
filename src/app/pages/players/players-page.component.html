@@ -33,6 +33,7 @@
       type="line"
       [players]="filteredLinePlayers"
       [total]="linePlayers.length"
+      [collapsible]="activeSection === 'all'"
       (remove)="removePlayer($event)"
     />
   }
@@ -43,6 +44,7 @@
       type="goalkeeper"
       [players]="filteredGoalkeepers"
       [total]="goalkeepers.length"
+      [collapsible]="activeSection === 'all'"
       (remove)="removePlayer($event)"
     />
   }

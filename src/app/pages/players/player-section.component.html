@@ -1,15 +1,23 @@
-<div class="player-group" [class.line-section]="type === 'line'" [class.keeper-section]="type === 'goalkeeper'">
+<div
+  class="player-group"
+  [class.line-section]="type === 'line'"
+  [class.keeper-section]="type === 'goalkeeper'"
+>
   <div class="group-heading">
     <span>{{ icon }}</span>
     <strong>{{ title }} ({{ total }})</strong>
     <span>›</span>
   </div>
 
-  @for (player of players; track player.name) {
+  @for (player of visiblePlayers; track player.name) {
     <div class="player-row">
       <span class="avatar">{{ player.initials }}</span>
       <span class="player-name">{{ player.name }}</span>
-      <span class="tag" [class.line-tag]="type === 'line'" [class.keeper-tag]="type === 'goalkeeper'">
+      <span
+        class="tag"
+        [class.line-tag]="type === 'line'"
+        [class.keeper-tag]="type === 'goalkeeper'"
+      >
         {{ icon }} {{ typeLabel }}
       </span>
       <button
@@ -25,5 +33,10 @@
     </div>
   }
 
-  <div class="see-all">Ver todos ({{ total }})　⌄</div>
+  @if (collapsible && players.length > 5) {
+    <button type="button" class="see-all" (click)="toggleExpanded()">
+      {{ showAll ? "Ver menos" : "Ver todos" }} ({{ players.length }})
+      <span>{{ showAll ? "⌃" : "⌄" }}</span>
+    </button>
+  }
 </div>

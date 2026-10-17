@@ -97,8 +97,16 @@
 }
 
 .see-all {
+  width: 100%;
+  border: 0;
+  background: transparent;
   text-align: center;
   color: #dce3e4;
   font-size: 9px;
   padding: 9px;
+  cursor: pointer;
+}
+
+.see-all:hover {
+  color: #ffffff;
 }
