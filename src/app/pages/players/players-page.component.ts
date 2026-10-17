@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Player } from '../../models';
+import { PlayerSectionComponent } from './player-section.component';
 
 @Component({
   selector: 'app-players-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PlayerSectionComponent],
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -34,7 +35,15 @@ export class PlayersPageComponent {
     return this.filteredPlayers.filter((player) => player.type === 'goalkeeper');
   }
 
+  get filteredLinePlayers(): Player[] {
+    return this.filteredPlayers.filter((player) => player.type === 'line');
+  }
+
   setSection(section: 'all' | 'line' | 'goalkeeper'): void {
     this.activeSection = section;
+  }
+
+  removePlayer(playerToRemove: Player): void {
+    this.players = this.players.filter((player) => player !== playerToRemove);
   }
 }

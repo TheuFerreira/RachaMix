@@ -1,0 +1,104 @@
+:host {
+  display: block;
+}
+
+.player-group {
+  background: linear-gradient(145deg, #121d23, #0c1418);
+  border: 1px solid #1c2a30;
+  border-radius: 11px;
+  margin-bottom: 9px;
+  overflow: hidden;
+}
+
+.group-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 11px;
+  font-size: 12px;
+
+  strong {
+    flex: 1;
+  }
+}
+
+.line-section .group-heading {
+  color: #e9f2f4;
+}
+
+.line-section .group-heading span:first-child {
+  color: var(--green);
+}
+
+.keeper-section .group-heading {
+  color: #36a5ff;
+}
+
+.player-row {
+  min-height: 36px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border-top: 1px solid #1b292f;
+  background: transparent;
+  text-align: left;
+  font-size: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #717988, #303640);
+  font-size: 11px;
+  color: #edf1f2;
+}
+
+.player-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tag {
+  border-radius: 8px;
+  padding: 5px 7px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.line-tag {
+  color: #80ffba;
+  background: #063f28;
+}
+
+.keeper-tag {
+  color: #72c5ff;
+  background: #07375c;
+}
+
+.row-action {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #d6dee2;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.delete-action:hover {
+  color: #ff6b78;
+}
+
+.see-all {
+  text-align: center;
+  color: #dce3e4;
+  font-size: 9px;
+  padding: 9px;
+}

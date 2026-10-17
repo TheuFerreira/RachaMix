@@ -1,21 +1,23 @@
 <section class="phone-screen players-screen">
   <div class="screen-title">
-    <div class="title-icon">♟</div>
+    <div class="title-icon">⚽</div>
     <h1>Jogadores</h1>
     <button class="icon-btn">⚙</button>
   </div>
   <div class="segmented">
     <button [class.active]="activeSection === 'all'" (click)="setSection('all')">
-      Todos <b>({{ players.length }})</b></button
-    ><button [class.active]="activeSection === 'line'" (click)="setSection('line')">
-      Linha <b>({{ linePlayers.length }})</b></button
-    ><button [class.active]="activeSection === 'goalkeeper'" (click)="setSection('goalkeeper')">
+      Todos <b>({{ players.length }})</b>
+    </button>
+    <button [class.active]="activeSection === 'line'" (click)="setSection('line')">
+      Linha <b>({{ linePlayers.length }})</b>
+    </button>
+    <button [class.active]="activeSection === 'goalkeeper'" (click)="setSection('goalkeeper')">
       Goleiros <b>({{ goalkeepers.length }})</b>
     </button>
   </div>
   <div class="search-row">
     <div class="search-box">
-      ⌕
+      🔍
       <input
         [(ngModel)]="search"
         placeholder="Buscar jogador..."
@@ -23,43 +25,28 @@
       />
     </div>
   </div>
+
   @if (activeSection === 'all' || activeSection === 'line') {
-  <div class="player-group">
-    <div class="group-heading line-color">
-      <span>🏃</span
-      ><strong>Jogadores de linha ({{ linePlayers.length }})</strong
-      ><span>›</span>
-    </div>
-    @for (player of filteredPlayers; track player.name) {
-      @if (player.type === "line") {
-        <div class="player-row">
-          <span class="avatar">{{ player.initials }}</span
-          ><span class="player-name">{{ player.name }}</span
-          ><span class="tag line-tag">🏃 Linha</span
-          ><span class="row-action">⌕</span><span class="row-action">♜</span>
-        </div>
-      }
-    }
-    <div class="see-all">Ver todos ({{ linePlayers.length }})　⌄</div>
-  </div>
+    <app-player-section
+      title="Jogadores de linha"
+      icon="🏃"
+      type="line"
+      [players]="filteredLinePlayers"
+      [total]="linePlayers.length"
+      (remove)="removePlayer($event)"
+    />
   }
   @if (activeSection === 'all' || activeSection === 'goalkeeper') {
-  <div class="player-group">
-    <div class="group-heading keeper-color">
-      <span>🖐</span><strong>Goleiros ({{ goalkeepers.length }})</strong
-      ><span>›</span>
-    </div>
-    @for (player of filteredGoalkeepers; track player.name) {
-      <div class="player-row">
-        <span class="avatar">{{ player.initials }}</span
-        ><span class="player-name">{{ player.name }}</span
-        ><span class="tag keeper-tag">🖐 Goleiro</span
-        ><span class="row-action">⌕</span><span class="row-action">♜</span>
-      </div>
-    }
-    <div class="see-all">Ver todos ({{ goalkeepers.length }})　⌄</div>
-  </div>
+    <app-player-section
+      title="Goleiros"
+      icon="🖐"
+      type="goalkeeper"
+      [players]="filteredGoalkeepers"
+      [total]="goalkeepers.length"
+      (remove)="removePlayer($event)"
+    />
   }
+
   <button class="primary-btn add-player" (click)="add.emit()">
     ＋　Adicionar jogador
   </button>
