@@ -1,0 +1,49 @@
+<section class="phone-screen result-screen">
+  <div class="status-row"><span>9:41</span><span>▮◔ ▰</span></div>
+  <div class="screen-title centered">
+    <button class="back-btn" (click)="back.emit()">‹</button>
+    <h1>Times Sorteados</h1>
+    <button class="icon-btn">⟳</button>
+  </div>
+  <div class="rotation-card">
+    <div class="card-heading keeper-color">
+      <span>🖐</span>
+      <div>
+        <strong>Goleiros em revezamento <sup>ⓘ</sup></strong
+        ><small>Estes goleiros vão se revezar entre as partidas.</small
+        ><small>Eles não pertencem a um time fixo.</small>
+      </div>
+    </div>
+    @for (player of goalkeepers; track player.name; let i = $index) {
+      <div class="player-row">
+        <span class="rank">{{ i + 1 }}</span
+        ><span class="player-name">{{ player.name }}</span
+        ><span class="tag keeper-tag">Goleiro</span>
+      </div>
+    }
+    <div class="rotation-note">⟳　Ordem de revezamento entre as partidas</div>
+  </div>
+  @for (team of [1, 2]; track team) {
+    <div class="team-card" [class.team-two]="team === 2">
+      <div class="team-heading">
+        <strong>♟　Time {{ team }}</strong
+        ><span>{{ linePlayers.length / 2 | number: "1.0-0" }} jogadores</span>
+      </div>
+      @for (
+        player of linePlayers.slice((team - 1) * 3, team * 3);
+        track player.name
+      ) {
+        <div class="player-row">
+          <span class="round-icon">🏃</span
+          ><span class="player-name">{{ player.name }}</span
+          ><span class="tag line-tag">Linha</span>
+        </div>
+      }
+    </div>
+  }
+  <div class="result-actions">
+    <button class="secondary-btn" (click)="redraw.emit()">
+      ⟳　Sortear Novamente</button
+    ><button class="primary-btn share-btn">⌯　Compartilhar</button>
+  </div>
+</section>

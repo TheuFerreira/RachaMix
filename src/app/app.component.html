@@ -1,0 +1,48 @@
+<main class="app-shell">
+  <header class="brand-bar">
+    <div class="brand-mark">⚽</div>
+    <div>
+      <span class="eyebrow">RACHA MIX</span
+      ><strong>Seu jogo, do seu jeito.</strong>
+    </div>
+    <button class="icon-btn" aria-label="Configurações">⚙</button>
+  </header>
+
+  <section class="screen-grid">
+    @if (activeTab === "players") {
+      <app-players-page [players]="players" (add)="addPlayer()" />
+    }
+    @if (activeTab === "draw") {
+      <app-draw-page
+        [players]="players"
+        (back)="setTab('players')"
+        (generate)="setTab('history')"
+      />
+    }
+    @if (activeTab === "history") {
+      <app-results-page
+        [players]="players"
+        (back)="setTab('draw')"
+        (redraw)="setTab('draw')"
+      />
+    }
+  </section>
+
+  <nav class="bottom-nav">
+    <button
+      [class.active]="activeTab === 'players'"
+      (click)="setTab('players')"
+    >
+      <span>♟</span>Jogadores
+    </button>
+    <button [class.active]="activeTab === 'draw'" (click)="setTab('draw')">
+      <span>♧</span>Sortear
+    </button>
+    <button
+      [class.active]="activeTab === 'history'"
+      (click)="setTab('history')"
+    >
+      <span>◷</span>Histórico
+    </button>
+  </nav>
+</main>
