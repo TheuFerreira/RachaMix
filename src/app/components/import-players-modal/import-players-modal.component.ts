@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Player } from '../../models';
 
@@ -10,12 +10,17 @@ import { Player } from '../../models';
   styleUrl: './import-players-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImportPlayersModalComponent {
+export class ImportPlayersModalComponent implements AfterViewInit {
   @Output() closed = new EventEmitter<void>();
   @Output() imported = new EventEmitter<string[]>();
   @Input() existingPlayers: Player[] = [];
+  @ViewChild('modal') modal?: ElementRef<HTMLElement>;
 
   names = '';
+
+  ngAfterViewInit(): void {
+    queueMicrotask(() => this.modal?.nativeElement.querySelector<HTMLElement>('textarea')?.focus());
+  }
 
   get importedCount(): number {
     return this.getImportableNames().length;
@@ -27,6 +32,35 @@ export class ImportPlayersModalComponent {
 
   close(): void {
     this.closed.emit();
+  }
+
+  handleKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close();
+      return;
+    }
+
+    if (event.key !== 'Tab' || !this.modal) {
+      return;
+    }
+
+    const focusable = Array.from(this.modal.nativeElement.querySelectorAll<HTMLElement>(
+      'button, textarea, input, [tabindex]:not([tabindex="-1"])'
+    ));
+    if (focusable.length === 0) {
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   import(): void {

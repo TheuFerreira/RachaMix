@@ -9,12 +9,13 @@
     <div class="number-picker">
       <button
         type="button"
+        aria-label="Diminuir jogadores por time"
         (click)="decreasePlayersPerTeam()"
       >
         −
       </button>
       <strong>{{ playersPerTeam }}</strong>
-      <button type="button" (click)="increasePlayersPerTeam()">
+      <button type="button" aria-label="Aumentar jogadores por time" (click)="increasePlayersPerTeam()">
         ＋
       </button>
     </div>

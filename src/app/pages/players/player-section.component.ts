@@ -33,4 +33,11 @@ export class PlayerSectionComponent {
   toggleExpanded(): void {
     this.showAll = !this.showAll;
   }
+
+  activatePlayer(event: KeyboardEvent, player: Player): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.edit.emit(player);
+    }
+  }
 }

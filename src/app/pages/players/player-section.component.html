@@ -10,7 +10,14 @@
   </div>
 
   @for (player of visiblePlayers; track player.name) {
-    <div class="player-row" role="button" tabindex="0" (click)="edit.emit(player)" (keyup.enter)="edit.emit(player)">
+    <div
+      class="player-row"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="'Editar jogador ' + player.name"
+      (click)="edit.emit(player)"
+      (keydown)="activatePlayer($event, player)"
+    >
       <span class="avatar">{{ player.initials }}</span>
       <span class="player-name">{{ player.name }}</span>
       <span
@@ -35,7 +42,12 @@
   }
 
   @if (collapsible && players.length > 5) {
-    <button type="button" class="see-all" (click)="toggleExpanded()">
+    <button
+      type="button"
+      class="see-all"
+      [attr.aria-expanded]="showAll"
+      (click)="toggleExpanded()"
+    >
       {{ showAll ? "Ver menos" : "Ver todos" }} ({{ players.length }})
       <span>{{ showAll ? "⌃" : "⌄" }}</span>
     </button>

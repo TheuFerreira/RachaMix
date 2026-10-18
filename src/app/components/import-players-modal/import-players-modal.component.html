@@ -1,10 +1,12 @@
 <div class="modal-backdrop" (click)="close()">
   <section
+    #modal
     class="import-modal"
     role="dialog"
     aria-modal="true"
     aria-labelledby="import-players-title"
     (click)="$event.stopPropagation()"
+    (keydown)="handleKeydown($event)"
   >
     <div class="modal-header">
       <div>
