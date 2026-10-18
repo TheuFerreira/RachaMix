@@ -23,6 +23,9 @@
     ></textarea>
     <small id="import-help" class="import-help">
       {{ importedCount }} {{ importedCount === 1 ? 'jogador válido' : 'jogadores válidos' }}
+      @if (duplicateCount > 0) {
+        {{ duplicateCount }} {{ duplicateCount === 1 ? 'duplicado será ignorado' : 'duplicados serão ignorados' }}.
+      }
     </small>
     <div class="modal-actions">
       <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>

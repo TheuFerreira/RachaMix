@@ -59,6 +59,7 @@
 
   @if (isImportPlayersModalOpen) {
     <app-import-players-modal
+      [existingPlayers]="players"
       (closed)="closeImportPlayersModal()"
       (imported)="importPlayers($event)"
     />

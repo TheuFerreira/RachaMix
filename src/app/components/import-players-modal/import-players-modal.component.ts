@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Player } from '../../models';
 
 @Component({
   selector: 'app-import-players-modal',
@@ -12,11 +13,16 @@ import { FormsModule } from '@angular/forms';
 export class ImportPlayersModalComponent {
   @Output() closed = new EventEmitter<void>();
   @Output() imported = new EventEmitter<string[]>();
+  @Input() existingPlayers: Player[] = [];
 
   names = '';
 
   get importedCount(): number {
-    return this.getNames().length;
+    return this.getImportableNames().length;
+  }
+
+  get duplicateCount(): number {
+    return this.getNames().length - this.importedCount;
   }
 
   close(): void {
@@ -24,7 +30,7 @@ export class ImportPlayersModalComponent {
   }
 
   import(): void {
-    const names = this.getNames();
+    const names = this.getImportableNames();
     if (names.length > 0) {
       this.imported.emit(names);
     }
@@ -37,5 +43,12 @@ export class ImportPlayersModalComponent {
       .filter(Boolean)
       .forEach((name) => uniqueNames.set(name.toLocaleLowerCase(), name));
     return [...uniqueNames.values()];
+  }
+
+  private getImportableNames(): string[] {
+    const existingNames = new Set(
+      this.existingPlayers.map((player) => player.name.trim().toLocaleLowerCase())
+    );
+    return this.getNames().filter((name) => !existingNames.has(name.toLocaleLowerCase()));
   }
 }
