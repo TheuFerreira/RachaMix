@@ -26,7 +26,7 @@ export class PlayerService {
   constructor(private readonly storage: AppStorageService) {
     this.playerList = isDevMode()
       ? this.defaultPlayers
-      : this.storage.loadPlayers(this.defaultPlayers);
+      : this.storage.loadPlayers([]);
   }
 
   get players(): Player[] {
