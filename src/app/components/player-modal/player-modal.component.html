@@ -1,10 +1,12 @@
 <div class="modal-backdrop" (click)="close()">
   <section
+    #modal
     class="player-modal"
     role="dialog"
     aria-modal="true"
     [attr.aria-labelledby]="isEditMode ? 'edit-player-title' : 'add-player-title'"
     (click)="$event.stopPropagation()"
+    (keydown)="handleKeydown($event)"
   >
     <div class="modal-header">
       <h2 [id]="isEditMode ? 'edit-player-title' : 'add-player-title'">
@@ -17,12 +19,17 @@
     <input
       id="player-modal-name"
       type="text"
+      #nameInput
       [(ngModel)]="name"
       placeholder="Digite o nome do jogador"
       minlength="2"
       autocomplete="off"
+      (blur)="markNameAsTouched()"
       (keyup.enter)="save()"
     />
+    @if (nameTouched && name.trim().length > 0 && name.trim().length < 2) {
+      <small class="field-error">Digite pelo menos 2 caracteres.</small>
+    }
 
     <label for="player-modal-type">Posição</label>
     <div class="select-field">
