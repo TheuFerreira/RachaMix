@@ -1,5 +1,11 @@
-import type { ChangeDetectorRef } from '@angular/core';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { Player } from '../../models';
 

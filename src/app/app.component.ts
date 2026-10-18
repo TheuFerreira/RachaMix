@@ -6,7 +6,7 @@ import { ResultsPageComponent } from './pages/results/results-page.component';
 import type { Player, Tab } from './models';
 import type { PlayerFormValue } from './components/player-modal/player-modal.component';
 import { PlayerModalComponent } from './components/player-modal/player-modal.component';
-import type { PlayerService } from './player.service';
+import { PlayerService } from './player.service';
 import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
 import { drawTeams, shufflePlayers } from './draw-utils';
 
