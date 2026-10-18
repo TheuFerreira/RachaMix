@@ -6,6 +6,7 @@ import { ResultsPageComponent } from './pages/results/results-page.component';
 import { Player, Tab } from './models';
 import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
 import { PlayerService } from './player.service';
+import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
 
 @Component({
   selector: 'app-root',
