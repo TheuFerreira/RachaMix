@@ -5,7 +5,7 @@ import { DrawPageComponent } from './pages/draw/draw-page.component';
 import { ResultsPageComponent } from './pages/results/results-page.component';
 import { Player, Tab } from './models';
 import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
-import { getPlayerInitials } from './player-utils';
+import { PlayerService } from './player.service';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +15,10 @@ import { getPlayerInitials } from './player-utils';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  constructor(private readonly playerService: PlayerService) {}
+
   activeTab: Tab = 'players';
-  players: Player[] = [
-    { name: 'Pedro', initials: 'PE', type: 'line', selected: true }, { name: 'Lucas', initials: 'LU', type: 'line', selected: true },
-    { name: 'Gabriel', initials: 'GA', type: 'line', selected: true }, { name: 'Rafael', initials: 'RA', type: 'line', selected: true },
-    { name: 'Bruno', initials: 'BR', type: 'line', selected: true }, { name: 'Diego', initials: 'DI', type: 'line', selected: true },
-    { name: 'Matheus', initials: 'MA', type: 'goalkeeper', selected: true }, { name: 'Fernando', initials: 'FE', type: 'goalkeeper', selected: true },
-    { name: 'Vinicius', initials: 'VI', type: 'goalkeeper', selected: true }
-  ];
+  players: Player[] = this.playerService.players;
   drawnTeams: Player[][] = [];
   drawnGoalkeepers: Player[] = [];
   playersPerTeam = 4;
@@ -51,10 +47,7 @@ export class AppComponent {
   }
 
   addPlayer(form: PlayerFormValue): void {
-    this.players = [
-      ...this.players,
-      { name: form.name, initials: getPlayerInitials(form.name), type: form.type, selected: true }
-    ];
+    this.players = this.playerService.add(form);
   }
 
   saveEditedPlayer(form: PlayerFormValue): void {
@@ -62,9 +55,7 @@ export class AppComponent {
       return;
     }
 
-    this.players = this.players.map((player) => player === this.editingPlayer
-      ? { ...player, name: form.name, initials: getPlayerInitials(form.name), type: form.type }
-      : player);
+    this.players = this.playerService.update(this.editingPlayer, form);
     this.closeEditPlayerModal();
   }
 
