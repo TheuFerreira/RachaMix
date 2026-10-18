@@ -74,6 +74,10 @@ export class AppComponent {
     this.closeImportPlayersModal();
   }
 
+  removePlayer(player: Player): void {
+    this.players = this.playerService.remove(player);
+  }
+
   generateDraw(playersPerTeam: number): void {
     this.playersPerTeam = playersPerTeam;
     const selectedLinePlayers = this.shuffle(

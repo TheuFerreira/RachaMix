@@ -15,6 +15,7 @@
         (add)="openAddPlayerModal()"
         (edit)="openEditPlayerModal($event)"
         (importPlayers)="openImportPlayersModal()"
+        (remove)="removePlayer($event)"
       />
     }
     @if (activeTab === "draw") {

@@ -17,6 +17,7 @@ export class PlayersPageComponent {
   @Output() add = new EventEmitter<void>();
   @Output() edit = new EventEmitter<Player>();
   @Output() importPlayers = new EventEmitter<void>();
+  @Output() remove = new EventEmitter<Player>();
 
   search = '';
   activeSection: 'all' | 'line' | 'goalkeeper' = 'all';
@@ -46,10 +47,6 @@ export class PlayersPageComponent {
     this.activeSection = section;
   }
 
-  removePlayer(playerToRemove: Player): void {
-    this.players = this.players.filter((player) => player !== playerToRemove);
-  }
-
   requestRemovePlayer(player: Player): void {
     this.playerPendingRemoval = player;
   }
@@ -60,7 +57,7 @@ export class PlayersPageComponent {
 
   confirmRemovePlayer(): void {
     if (this.playerPendingRemoval) {
-      this.removePlayer(this.playerPendingRemoval);
+      this.remove.emit(this.playerPendingRemoval);
       this.playerPendingRemoval = null;
     }
   }
