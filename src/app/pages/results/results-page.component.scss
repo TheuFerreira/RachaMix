@@ -197,10 +197,9 @@
 .secondary-btn,
 .share-btn {
   flex: 1;
-  height: 38px;
   border-radius: 10px;
-  font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
+  height: 39px;
 }
 .secondary-btn {
   background: #17242b;
@@ -211,8 +210,8 @@
   background: linear-gradient(100deg, #47e78b, #72f9a6);
   color: #052115;
   font-family: Inter, system-ui, sans-serif;
-  font-size: 12px;
   font-weight: 700;
+  margin-top: 1px;
 }
 
 .copy-toast {
