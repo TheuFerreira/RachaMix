@@ -29,7 +29,22 @@ export class ResultsPageComponent {
   constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async shareTeams(): Promise<void> {
-    const result = this.formatTeams();
+    const result = this.formatTeamsForWhatsApp();
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'RachaMix - Times sorteados',
+          text: result
+        });
+        return;
+      } catch (shareError) {
+        if (shareError instanceof DOMException && shareError.name === 'AbortError') {
+          return;
+        }
+      }
+    }
+
     let copied = false;
 
     try {
@@ -67,14 +82,14 @@ export class ResultsPageComponent {
     }, 2000);
   }
 
-  private formatTeams(): string {
-    const goalkeepers = this.goalkeepers.length
-      ? `Goleiros em revezamento:\n${this.goalkeepers.map((player) => `- ${player.name}`).join('\n')}\n\n`
-      : '';
-    const teams = this.teams
-      .map((team, index) => `Time ${index + 1}:\n${team.map((player) => `- ${player.name}`).join('\n')}`)
-      .join('\n\n');
+ formatTeamsForWhatsApp(): string {
+   const goalkeepers = this.goalkeepers.length
+      ? `*Goleiros em revezamento:*\n${this.goalkeepers.map((player) => `• ${player.name}`).join('\n')}\n\n`
+     : '';
+   const teams = this.teams
+      .map((team, index) => `*Time ${index + 1}* (${team.length} jogadores)\n${team.map((player) => `• ${player.name}`).join('\n')}`)
+     .join('\n\n');
 
-    return `${goalkeepers}${teams}`;
-  }
+    return `*RachaMix — Times sorteados*\n\n${goalkeepers}${teams}`;
+ }
 }
