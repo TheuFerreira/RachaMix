@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Player } from '../../models';
 
@@ -17,6 +24,9 @@ export class ResultsPageComponent {
   @Output() back = new EventEmitter<void>();
   @Output() redraw = new EventEmitter<void>();
   copied = false;
+  private toastTimeout?: number;
+
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   async shareTeams(): Promise<void> {
     const result = this.formatTeams();
@@ -25,7 +35,7 @@ export class ResultsPageComponent {
     try {
       await navigator.clipboard.writeText(result);
       copied = true;
-    } catch {
+    } catch (clipboardError) {
       try {
         const textarea = document.createElement('textarea');
         textarea.value = result;
@@ -35,7 +45,11 @@ export class ResultsPageComponent {
         textarea.select();
         copied = document.execCommand('copy');
         textarea.remove();
-      } catch {
+      } catch (fallbackError) {
+        console.error('Erro ao copiar os times para a área de transferência.', {
+          clipboardError,
+          fallbackError
+        });
         copied = false;
       }
     }
@@ -45,8 +59,11 @@ export class ResultsPageComponent {
     }
 
     this.copied = true;
-    window.setTimeout(() => {
+    this.changeDetectorRef.markForCheck();
+    window.clearTimeout(this.toastTimeout);
+    this.toastTimeout = window.setTimeout(() => {
       this.copied = false;
+      this.changeDetectorRef.markForCheck();
     }, 2000);
   }
 
