@@ -176,3 +176,36 @@
   cursor: not-allowed;
   opacity: 0.45;
 }
+
+@media (max-width: 480px) {
+  .modal-backdrop {
+    align-items: end;
+    padding: 0;
+  }
+
+  .player-modal {
+    width: 100%;
+    padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .player-modal input,
+  .select-trigger {
+    font-size: 16px;
+  }
+
+  .select-options {
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  .modal-actions {
+    gap: 8px;
+  }
+
+  .modal-actions button {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+  }
+}
