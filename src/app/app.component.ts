@@ -7,6 +7,7 @@ import { Player, Tab } from './models';
 import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
 import { PlayerService } from './player.service';
 import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
+import { drawTeams, shufflePlayers } from './draw-utils';
 
 @Component({
   selector: 'app-root',
@@ -80,10 +81,10 @@ export class AppComponent {
 
   generateDraw(playersPerTeam: number): void {
     this.playersPerTeam = playersPerTeam;
-    const selectedLinePlayers = this.shuffle(
-      this.players.filter((player) => player.type === 'line' && player.selected)
+    const selectedLinePlayers = this.players.filter(
+      (player) => player.type === 'line' && player.selected
     );
-    const selectedGoalkeepers = this.shuffle(
+    const selectedGoalkeepers = shufflePlayers(
       this.players.filter((player) => player.type === 'goalkeeper' && player.selected)
     );
 
@@ -93,11 +94,7 @@ export class AppComponent {
       return;
     }
 
-    const teamCount = Math.ceil(selectedLinePlayers.length / playersPerTeam);
-    this.drawnTeams = Array.from({ length: teamCount }, () => [] as Player[]);
-    selectedLinePlayers.forEach((player, index) => {
-      this.drawnTeams[index % teamCount].push(player);
-    });
+    this.drawnTeams = drawTeams(selectedLinePlayers, playersPerTeam);
     this.drawnGoalkeepers = selectedGoalkeepers;
   }
 
@@ -105,14 +102,4 @@ export class AppComponent {
     this.generateDraw(this.playersPerTeam);
   }
 
-  private shuffle(players: Player[]): Player[] {
-    const shuffled = [...players];
-
-    for (let index = shuffled.length - 1; index > 0; index -= 1) {
-      const randomIndex = Math.floor(Math.random() * (index + 1));
-      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
-    }
-
-    return shuffled;
-  }
 }
