@@ -2,15 +2,19 @@
   <header class="brand-bar">
     <div class="brand-mark">⚽</div>
     <div>
-      <span class="eyebrow">RACHA MIX</span
-      ><strong>Seu jogo, do seu jeito.</strong>
+      <span class="eyebrow">RACHA MIX</span>
+      <strong>Seu jogo, do seu jeito.</strong>
     </div>
     <button class="icon-btn" aria-label="Configurações">⚙</button>
   </header>
 
   <section class="screen-grid">
     @if (activeTab === "players") {
-      <app-players-page [players]="players" (add)="openAddPlayerModal()" (edit)="openEditPlayerModal($event)" />
+      <app-players-page
+        [players]="players"
+        (add)="openAddPlayerModal()"
+        (edit)="openEditPlayerModal($event)"
+      />
     }
     @if (activeTab === "draw") {
       <app-draw-page
@@ -33,166 +37,20 @@
   </section>
 
   @if (isAddPlayerModalOpen) {
-    <div class="modal-backdrop" (click)="closeAddPlayerModal()">
-      <section
-        class="add-player-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="add-player-title"
-        (click)="$event.stopPropagation()"
-      >
-        <div class="modal-header">
-          <h2 id="add-player-title">Adicionar jogador</h2>
-          <button type="button" class="modal-close" aria-label="Fechar" (click)="closeAddPlayerModal()">
-            ×
-          </button>
-        </div>
-        <label for="player-name">Nome</label>
-        <input
-          id="player-name"
-          type="text"
-          [(ngModel)]="newPlayerName"
-          placeholder="Digite o nome do jogador"
-          autocomplete="off"
-          minlength="2"
-          (keyup.enter)="addPlayer()"
-        />
-        <label for="player-type">Posição</label>
-        <div class="select-field">
-          <button
-            id="player-type"
-            type="button"
-            class="select-trigger"
-            [class.open]="isPlayerTypeMenuOpen"
-            [attr.aria-expanded]="isPlayerTypeMenuOpen"
-            aria-haspopup="listbox"
-            (click)="togglePlayerTypeMenu()"
-          >
-            <span class="position-value">
-              @if (newPlayerType === 'line') {
-                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
-                Linha
-              } @else {
-                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
-                Goleiro
-              }
-            </span>
-            <span class="select-chevron"></span>
-          </button>
-          @if (isPlayerTypeMenuOpen) {
-            <div class="select-options" role="listbox" aria-label="PosiÃ§Ã£o do jogador">
-              <button
-                type="button"
-                role="option"
-                [attr.aria-selected]="newPlayerType === 'line'"
-                [class.selected]="newPlayerType === 'line'"
-                (click)="selectPlayerType('line')"
-              >
-                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
-                Linha
-              </button>
-              <button
-                type="button"
-                role="option"
-                [attr.aria-selected]="newPlayerType === 'goalkeeper'"
-                [class.selected]="newPlayerType === 'goalkeeper'"
-                (click)="selectPlayerType('goalkeeper')"
-              >
-                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
-                Goleiro
-              </button>
-            </div>
-          }
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeAddPlayerModal()">Cancelar</button>
-          <button type="button" class="primary-btn" [disabled]="newPlayerName.trim().length < 2" (click)="addPlayer()">
-            Adicionar
-          </button>
-        </div>
-      </section>
-    </div>
+    <app-player-modal
+      mode="add"
+      (closed)="closeAddPlayerModal()"
+      (saved)="addPlayer($event)"
+    />
   }
 
   @if (isEditPlayerModalOpen) {
-    <div class="modal-backdrop" (click)="closeEditPlayerModal()">
-      <section
-        class="add-player-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="edit-player-title"
-        (click)="$event.stopPropagation()"
-      >
-        <div class="modal-header">
-          <h2 id="edit-player-title">Editar jogador</h2>
-          <button type="button" class="modal-close" aria-label="Fechar" (click)="closeEditPlayerModal()">
-             ×
-          </button>
-        </div>
-        <label for="edit-player-name">Nome</label>
-        <input
-          id="edit-player-name"
-          type="text"
-          [(ngModel)]="editPlayerName"
-          minlength="2"
-          autocomplete="off"
-          (keyup.enter)="saveEditedPlayer()"
-        />
-        <label for="edit-player-type">PosiÃ§Ã£o</label>
-        <div class="select-field">
-          <button
-            id="edit-player-type"
-            type="button"
-            class="select-trigger"
-            [class.open]="isEditPlayerTypeMenuOpen"
-            [attr.aria-expanded]="isEditPlayerTypeMenuOpen"
-            aria-haspopup="listbox"
-            (click)="toggleEditPlayerTypeMenu()"
-          >
-            <span class="position-value">
-              @if (editPlayerType === 'line') {
-                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
-                Linha
-              } @else {
-                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
-                Goleiro
-              }
-            </span>
-            <span class="select-chevron"></span>
-          </button>
-          @if (isEditPlayerTypeMenuOpen) {
-            <div class="select-options" role="listbox" aria-label="PosiÃ§Ã£o do jogador">
-              <button
-                type="button"
-                role="option"
-                [attr.aria-selected]="editPlayerType === 'line'"
-                [class.selected]="editPlayerType === 'line'"
-                (click)="selectEditPlayerType('line')"
-              >
-                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
-                Linha
-              </button>
-              <button
-                type="button"
-                role="option"
-                [attr.aria-selected]="editPlayerType === 'goalkeeper'"
-                [class.selected]="editPlayerType === 'goalkeeper'"
-                (click)="selectEditPlayerType('goalkeeper')"
-              >
-                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
-                Goleiro
-              </button>
-            </div>
-          }
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeEditPlayerModal()">Cancelar</button>
-          <button type="button" class="primary-btn" [disabled]="editPlayerName.trim().length < 2" (click)="saveEditedPlayer()">
-            Salvar
-          </button>
-        </div>
-      </section>
-    </div>
+    <app-player-modal
+      mode="edit"
+      [player]="editingPlayer"
+      (closed)="closeEditPlayerModal()"
+      (saved)="saveEditedPlayer($event)"
+    />
   }
 
   <nav class="bottom-nav">

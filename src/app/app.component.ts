@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { PlayersPageComponent } from './pages/players/players-page.component';
 import { DrawPageComponent } from './pages/draw/draw-page.component';
 import { ResultsPageComponent } from './pages/results/results-page.component';
-import { FormsModule } from '@angular/forms';
-import { Player, PlayerType, Tab } from './models';
+import { Player, Tab } from './models';
+import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, PlayersPageComponent, DrawPageComponent, ResultsPageComponent],
+  imports: [CommonModule, PlayersPageComponent, DrawPageComponent, ResultsPageComponent, PlayerModalComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html'
 })
@@ -26,84 +26,43 @@ export class AppComponent {
   drawnGoalkeepers: Player[] = [];
   playersPerTeam = 4;
   isAddPlayerModalOpen = false;
-  isPlayerTypeMenuOpen = false;
-  newPlayerName = '';
-  newPlayerType: PlayerType = 'line';
   isEditPlayerModalOpen = false;
-  isEditPlayerTypeMenuOpen = false;
   editingPlayer: Player | null = null;
-  editPlayerName = '';
-  editPlayerType: PlayerType = 'line';
 
   setTab(tab: Tab): void { this.activeTab = tab; }
 
   openAddPlayerModal(): void {
-    this.newPlayerName = '';
-    this.newPlayerType = 'line';
-    this.isPlayerTypeMenuOpen = false;
     this.isAddPlayerModalOpen = true;
   }
 
   closeAddPlayerModal(): void {
     this.isAddPlayerModalOpen = false;
-    this.isPlayerTypeMenuOpen = false;
   }
 
   openEditPlayerModal(player: Player): void {
     this.editingPlayer = player;
-    this.editPlayerName = player.name;
-    this.editPlayerType = player.type;
-    this.isEditPlayerTypeMenuOpen = false;
     this.isEditPlayerModalOpen = true;
   }
 
   closeEditPlayerModal(): void {
     this.isEditPlayerModalOpen = false;
-    this.isEditPlayerTypeMenuOpen = false;
     this.editingPlayer = null;
   }
 
-  togglePlayerTypeMenu(): void {
-    this.isPlayerTypeMenuOpen = !this.isPlayerTypeMenuOpen;
-  }
-
-  selectPlayerType(type: PlayerType): void {
-    this.newPlayerType = type;
-    this.isPlayerTypeMenuOpen = false;
-  }
-
-  toggleEditPlayerTypeMenu(): void {
-    this.isEditPlayerTypeMenuOpen = !this.isEditPlayerTypeMenuOpen;
-  }
-
-  selectEditPlayerType(type: PlayerType): void {
-    this.editPlayerType = type;
-    this.isEditPlayerTypeMenuOpen = false;
-  }
-
-  addPlayer(): void {
-    const name = this.newPlayerName.trim();
-    if (name.length < 2) {
-      return;
-    }
-
+  addPlayer(form: PlayerFormValue): void {
     this.players = [
       ...this.players,
-      { name, initials: this.getInitials(name), type: this.newPlayerType, selected: true }
+      { name: form.name, initials: this.getInitials(form.name), type: form.type, selected: true }
     ];
-    this.newPlayerName = '';
-    this.newPlayerType = 'line';
-    this.isPlayerTypeMenuOpen = false;
   }
 
-  saveEditedPlayer(): void {
-    const name = this.editPlayerName.trim();
-    if (!this.editingPlayer || name.length < 2) {
+  saveEditedPlayer(form: PlayerFormValue): void {
+    if (!this.editingPlayer) {
       return;
     }
 
     this.players = this.players.map((player) => player === this.editingPlayer
-      ? { ...player, name, initials: this.getInitials(name), type: this.editPlayerType }
+      ? { ...player, name: form.name, initials: this.getInitials(form.name), type: form.type }
       : player);
     this.closeEditPlayerModal();
   }

@@ -1,0 +1,82 @@
+<div class="modal-backdrop" (click)="close()">
+  <section
+    class="player-modal"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="isEditMode ? 'edit-player-title' : 'add-player-title'"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="modal-header">
+      <h2 [id]="isEditMode ? 'edit-player-title' : 'add-player-title'">
+        {{ isEditMode ? 'Editar jogador' : 'Adicionar jogador' }}
+      </h2>
+      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">×</button>
+    </div>
+
+    <label for="player-modal-name">Nome</label>
+    <input
+      id="player-modal-name"
+      type="text"
+      [(ngModel)]="name"
+      placeholder="Digite o nome do jogador"
+      minlength="2"
+      autocomplete="off"
+      (keyup.enter)="save()"
+    />
+
+    <label for="player-modal-type">Posição</label>
+    <div class="select-field">
+      <button
+        id="player-modal-type"
+        type="button"
+        class="select-trigger"
+        [class.open]="isTypeMenuOpen"
+        [attr.aria-expanded]="isTypeMenuOpen"
+        aria-haspopup="listbox"
+        (click)="toggleTypeMenu()"
+      >
+        <span class="position-value">
+          @if (type === 'line') {
+            <span class="position-icon" aria-hidden="true">🏃</span>
+            Linha
+          } @else {
+            <span class="position-icon" aria-hidden="true">🖐</span>
+            Goleiro
+          }
+        </span>
+        <span class="select-chevron"></span>
+      </button>
+      @if (isTypeMenuOpen) {
+        <div class="select-options" role="listbox" aria-label="Posição do jogador">
+          <button
+            type="button"
+            role="option"
+            [attr.aria-selected]="type === 'line'"
+            [class.selected]="type === 'line'"
+            (click)="selectType('line')"
+          >
+            <span class="position-icon" aria-hidden="true">🏃</span>
+            Linha
+          </button>
+          <button
+            type="button"
+            role="option"
+            [attr.aria-selected]="type === 'goalkeeper'"
+            [class.selected]="type === 'goalkeeper'"
+            (click)="selectType('goalkeeper')"
+          >
+            <span class="position-icon" aria-hidden="true">🖐</span>
+            Goleiro
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
+      <button type="button" class="primary-btn" [disabled]="name.trim().length < 2" (click)="save()">
+        {{ isEditMode ? 'Salvar' : 'Adicionar' }}
+      </button>
+    </div>
+  </section>
+</div>
