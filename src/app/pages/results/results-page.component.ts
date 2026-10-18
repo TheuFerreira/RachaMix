@@ -61,7 +61,7 @@ export class ResultsPageComponent {
         copied = document.execCommand('copy');
         textarea.remove();
       } catch (fallbackError) {
-        console.error('Erro ao copiar os times para a área de transferência.', {
+        console.error('Erro ao copiar os times para a \u00E1rea de transfer\u00EAncia.', {
           clipboardError,
           fallbackError,
         });
@@ -83,15 +83,22 @@ export class ResultsPageComponent {
 
   formatTeamsForWhatsApp(): string {
     const goalkeepers = this.goalkeepers.length
-      ? `*Goleiros em revezamento:*\n${this.goalkeepers.map((player) => `• ${player.name}`).join('\n')}\n\n`
+      ? '*Goleiros em revezamento:*\n' +
+        this.goalkeepers.map((player) => '\u2022 ' + player.name).join('\n') +
+        '\n\n'
       : '';
     const teams = this.teams
       .map(
         (team, index) =>
-          `*Time ${index + 1}* (${team.length} jogadores)\n${team.map((player) => `• ${player.name}`).join('\n')}`,
+          '*Time ' +
+          (index + 1) +
+          '* (' +
+          team.length +
+          ' jogadores)\n' +
+          team.map((player) => '\u2022 ' + player.name).join('\n'),
       )
       .join('\n\n');
 
-    return `*RachaMix — Times sorteados*\n\n${goalkeepers}${teams}`;
+    return '*RachaMix \u2014 Times sorteados*\n\n' + goalkeepers + teams;
   }
 }
