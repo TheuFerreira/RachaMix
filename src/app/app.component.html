@@ -39,6 +39,7 @@
   @if (isAddPlayerModalOpen) {
     <app-player-modal
       mode="add"
+      [existingPlayers]="players"
       (closed)="closeAddPlayerModal()"
       (saved)="addPlayer($event)"
     />
@@ -48,6 +49,7 @@
     <app-player-modal
       mode="edit"
       [player]="editingPlayer"
+      [existingPlayers]="players"
       (closed)="closeEditPlayerModal()"
       (saved)="saveEditedPlayer($event)"
     />

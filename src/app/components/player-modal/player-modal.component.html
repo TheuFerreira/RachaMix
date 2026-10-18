@@ -27,8 +27,8 @@
       (blur)="markNameAsTouched()"
       (keyup.enter)="save()"
     />
-    @if (nameTouched && name.trim().length > 0 && name.trim().length < 2) {
-      <small class="field-error">Digite pelo menos 2 caracteres.</small>
+    @if (nameTouched && nameError) {
+      <small class="field-error">{{ nameError }}</small>
     }
 
     <label for="player-modal-type">Posição</label>
@@ -81,7 +81,7 @@
 
     <div class="modal-actions">
       <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
-      <button type="button" class="primary-btn" [disabled]="name.trim().length < 2" (click)="save()">
+      <button type="button" class="primary-btn" [disabled]="name.trim().length < 2 || !!nameError" (click)="save()">
         {{ isEditMode ? 'Salvar' : 'Adicionar' }}
       </button>
     </div>

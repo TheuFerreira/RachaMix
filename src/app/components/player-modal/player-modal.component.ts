@@ -19,6 +19,7 @@ export interface PlayerFormValue {
 export class PlayerModalComponent implements AfterViewInit, OnChanges {
   @Input() mode: 'add' | 'edit' = 'add';
   @Input() player: Player | null = null;
+  @Input() existingPlayers: Player[] = [];
   @Output() closed = new EventEmitter<void>();
   @Output() saved = new EventEmitter<PlayerFormValue>();
   @ViewChild('nameInput') nameInput?: ElementRef<HTMLInputElement>;
@@ -31,6 +32,18 @@ export class PlayerModalComponent implements AfterViewInit, OnChanges {
 
   get isEditMode(): boolean {
     return this.mode === 'edit';
+  }
+
+  get nameError(): string {
+    const normalizedName = this.name.trim().toLocaleLowerCase();
+    if (normalizedName.length > 0 && normalizedName.length < 2) {
+      return 'Digite pelo menos 2 caracteres.';
+    }
+
+    const duplicated = this.existingPlayers.some((player) =>
+      player !== this.player && player.name.trim().toLocaleLowerCase() === normalizedName
+    );
+    return duplicated ? 'Já existe um jogador com esse nome.' : '';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -95,7 +108,7 @@ export class PlayerModalComponent implements AfterViewInit, OnChanges {
   save(): void {
     const name = this.name.trim();
     this.nameTouched = true;
-    if (name.length < 2) {
+    if (name.length < 2 || this.nameError) {
       return;
     }
 
