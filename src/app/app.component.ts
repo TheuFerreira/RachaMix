@@ -26,6 +26,7 @@ export class AppComponent {
   drawnGoalkeepers: Player[] = [];
   playersPerTeam = 4;
   isAddPlayerModalOpen = false;
+  isPlayerTypeMenuOpen = false;
   newPlayerName = '';
   newPlayerType: PlayerType = 'line';
 
@@ -34,11 +35,22 @@ export class AppComponent {
   openAddPlayerModal(): void {
     this.newPlayerName = '';
     this.newPlayerType = 'line';
+    this.isPlayerTypeMenuOpen = false;
     this.isAddPlayerModalOpen = true;
   }
 
   closeAddPlayerModal(): void {
     this.isAddPlayerModalOpen = false;
+    this.isPlayerTypeMenuOpen = false;
+  }
+
+  togglePlayerTypeMenu(): void {
+    this.isPlayerTypeMenuOpen = !this.isPlayerTypeMenuOpen;
+  }
+
+  selectPlayerType(type: PlayerType): void {
+    this.newPlayerType = type;
+    this.isPlayerTypeMenuOpen = false;
   }
 
   addPlayer(): void {
@@ -53,6 +65,7 @@ export class AppComponent {
     ];
     this.newPlayerName = '';
     this.newPlayerType = 'line';
+    this.isPlayerTypeMenuOpen = false;
   }
 
   private getInitials(name: string): string {

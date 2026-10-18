@@ -166,7 +166,7 @@ button {
 }
 
 .add-player-modal input,
-.add-player-modal select {
+.select-trigger {
   width: 100%;
   height: 42px;
   padding: 0 12px;
@@ -178,8 +178,85 @@ button {
   font-size: 12px;
 }
 
+.select-field {
+  position: relative;
+}
+
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+}
+
+.position-value,
+.select-options button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.position-icon {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.select-trigger.open,
+.select-trigger:focus {
+  border-color: var(--green);
+}
+
+.select-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.select-trigger.open .select-chevron {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.select-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  z-index: 2;
+  padding: 5px;
+  border: 1px solid #2a3d44;
+  border-radius: 10px;
+  background: #101e24;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+.select-options button {
+  width: 100%;
+  padding: 10px 11px;
+  border-radius: 7px;
+  background: transparent;
+  color: #dce6e8;
+  font-size: 12px;
+  text-align: left;
+}
+
+.select-options button:hover,
+.select-options button.selected {
+  background: #17352b;
+  color: var(--green);
+}
+
+.select-options button.selected::after {
+  float: right;
+  content: "✓";
+}
+
 .add-player-modal input:focus,
-.add-player-modal select:focus {
+.select-trigger:focus {
   border-color: var(--green);
 }
 

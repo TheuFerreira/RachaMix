@@ -58,10 +58,52 @@
           (keyup.enter)="addPlayer()"
         />
         <label for="player-type">Posição</label>
-        <select id="player-type" [(ngModel)]="newPlayerType">
-          <option value="line">Linha</option>
-          <option value="goalkeeper">Goleiro</option>
-        </select>
+        <div class="select-field">
+          <button
+            id="player-type"
+            type="button"
+            class="select-trigger"
+            [class.open]="isPlayerTypeMenuOpen"
+            [attr.aria-expanded]="isPlayerTypeMenuOpen"
+            aria-haspopup="listbox"
+            (click)="togglePlayerTypeMenu()"
+          >
+            <span class="position-value">
+              @if (newPlayerType === 'line') {
+                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
+                Linha
+              } @else {
+                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
+                Goleiro
+              }
+            </span>
+            <span class="select-chevron"></span>
+          </button>
+          @if (isPlayerTypeMenuOpen) {
+            <div class="select-options" role="listbox" aria-label="PosiÃ§Ã£o do jogador">
+              <button
+                type="button"
+                role="option"
+                [attr.aria-selected]="newPlayerType === 'line'"
+                [class.selected]="newPlayerType === 'line'"
+                (click)="selectPlayerType('line')"
+              >
+                <span class="position-icon line-icon" aria-hidden="true">🏃</span>
+                Linha
+              </button>
+              <button
+                type="button"
+                role="option"
+                [attr.aria-selected]="newPlayerType === 'goalkeeper'"
+                [class.selected]="newPlayerType === 'goalkeeper'"
+                (click)="selectPlayerType('goalkeeper')"
+              >
+                <span class="position-icon goalkeeper-icon" aria-hidden="true">🖐</span>
+                Goleiro
+              </button>
+            </div>
+          }
+        </div>
         <div class="modal-actions">
           <button type="button" class="secondary-btn" (click)="closeAddPlayerModal()">Cancelar</button>
           <button type="button" class="primary-btn" [disabled]="newPlayerName.trim().length < 2" (click)="addPlayer()">
