@@ -10,7 +10,7 @@
 
   <section class="screen-grid">
     @if (activeTab === "players") {
-      <app-players-page [players]="players" (add)="addPlayer()" />
+      <app-players-page [players]="players" (add)="openAddPlayerModal()" />
     }
     @if (activeTab === "draw") {
       <app-draw-page
@@ -31,6 +31,45 @@
       />
     }
   </section>
+
+  @if (isAddPlayerModalOpen) {
+    <div class="modal-backdrop" (click)="closeAddPlayerModal()">
+      <section
+        class="add-player-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-player-title"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h2 id="add-player-title">Adicionar jogador</h2>
+          <button type="button" class="modal-close" aria-label="Fechar" (click)="closeAddPlayerModal()">
+            ×
+          </button>
+        </div>
+        <label for="player-name">Nome</label>
+        <input
+          id="player-name"
+          type="text"
+          [(ngModel)]="newPlayerName"
+          placeholder="Digite o nome do jogador"
+          autocomplete="off"
+          (keyup.enter)="addPlayer()"
+        />
+        <label for="player-type">Posição</label>
+        <select id="player-type" [(ngModel)]="newPlayerType">
+          <option value="line">Linha</option>
+          <option value="goalkeeper">Goleiro</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeAddPlayerModal()">Cancelar</button>
+          <button type="button" class="primary-btn" [disabled]="!newPlayerName.trim()" (click)="addPlayer()">
+            Adicionar
+          </button>
+        </div>
+      </section>
+    </div>
+  }
 
   <nav class="bottom-nav">
     <button

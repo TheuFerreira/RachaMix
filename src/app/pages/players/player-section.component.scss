@@ -22,6 +22,10 @@
   }
 }
 
+.group-heading > span:last-child {
+  display: none;
+}
+
 .line-section .group-heading {
   color: #e9f2f4;
 }
