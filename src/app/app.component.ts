@@ -23,6 +23,7 @@ export class AppComponent {
   ];
   drawnTeams: Player[][] = [];
   drawnGoalkeepers: Player[] = [];
+  playersPerTeam = 2;
 
   setTab(tab: Tab): void { this.activeTab = tab; }
 
@@ -31,6 +32,7 @@ export class AppComponent {
   }
 
   generateDraw(playersPerTeam: number): void {
+    this.playersPerTeam = playersPerTeam;
     const selectedLinePlayers = this.shuffle(
       this.players.filter((player) => player.type === 'line' && player.selected)
     );
@@ -44,6 +46,10 @@ export class AppComponent {
       this.drawnTeams[index % teamCount].push(player);
     });
     this.drawnGoalkeepers = selectedGoalkeepers;
+  }
+
+  redraw(): void {
+    this.generateDraw(this.playersPerTeam);
   }
 
   private shuffle(players: Player[]): Player[] {

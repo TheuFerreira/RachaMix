@@ -2,7 +2,14 @@
   <div class="screen-title centered">
     <button class="back-btn" (click)="back.emit()">‹</button>
     <h1>Times Sorteados</h1>
-    <button class="icon-btn" type="button">⟳</button>
+    <button
+      class="icon-btn"
+      type="button"
+      aria-label="Sortear times novamente"
+      (click)="redraw.emit()"
+    >
+      ⟳
+    </button>
   </div>
 
   <div class="rotation-card">
@@ -50,9 +57,6 @@
   }
 
   <div class="result-actions">
-    <button class="secondary-btn" type="button" (click)="redraw.emit()">
-      ⟳　Sortear Novamente
-    </button>
     <button class="primary-btn share-btn" type="button">⌯　Compartilhar</button>
   </div>
 </section>
