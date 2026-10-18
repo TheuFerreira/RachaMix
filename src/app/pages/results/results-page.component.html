@@ -57,14 +57,16 @@
   }
 
   <div class="result-actions">
-    <button
-      class="primary-btn share-btn"
-      type="button"
-      aria-label="Copiar times"
-      (click)="shareTeams()"
-    >
-      <span aria-hidden="true">⤴</span>
-      {{ copied ? 'Times copiados!' : 'Compartilhar' }}
-    </button>
+    @if (teams.length > 0) {
+      <button
+        class="primary-btn share-btn"
+        type="button"
+        aria-label="Copiar times"
+        (click)="shareTeams()"
+      >
+        <span aria-hidden="true">⤴</span>
+        {{ copied ? 'Times copiados!' : 'Compartilhar' }}
+      </button>
+    }
   </div>
 </section>
