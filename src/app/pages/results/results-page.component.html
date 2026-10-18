@@ -65,8 +65,14 @@
         (click)="shareTeams()"
       >
         <span aria-hidden="true">⤴</span>
-        {{ copied ? 'Times copiados!' : 'Compartilhar' }}
+        Compartilhar
       </button>
     }
   </div>
+
+  @if (copied) {
+    <div class="copy-toast" role="status" aria-live="polite">
+      Times copiados!
+    </div>
+  }
 </section>
