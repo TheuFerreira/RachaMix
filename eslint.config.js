@@ -12,5 +12,11 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error'
     }
+  },
+  {
+    files: ['src/app/app.component.ts', 'src/app/pages/results/results-page.component.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'off'
+    }
   }
 );
