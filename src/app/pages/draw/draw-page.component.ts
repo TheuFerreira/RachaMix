@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { Player } from '../../models';
+import { getPlayerTypeIcon } from '../../player-utils';
 
 @Component({
   selector: 'app-draw-page',
@@ -29,6 +30,12 @@ export class DrawPageComponent {
   }
   get selectedGoalkeepers(): number {
     return this.goalkeepers.filter((player) => player.selected).length;
+  }
+  get lineIcon(): string {
+    return getPlayerTypeIcon('line');
+  }
+  get goalkeeperIcon(): string {
+    return getPlayerTypeIcon('goalkeeper');
   }
   get canGenerate(): boolean {
     return this.selectedLinePlayers >= 2 && this.playersPerTeam >= 2;

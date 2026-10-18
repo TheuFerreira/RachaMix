@@ -10,14 +10,13 @@
       aria-label="Sortear times novamente"
       (click)="redraw.emit()"
     >
-      &#10227;
+      Sortear novamente
     </button>
   </div>
   <div class="rotation-card">
     <div class="card-heading keeper-color">
-      <span aria-hidden="true">&#x1F590;</span>
       <div>
-        <strong>Goleiros em revezamento <sup>&#9432;</sup></strong
+        <strong>Goleiros em revezamento</strong
         ><small>Estes goleiros v&#227;o se revezar entre as partidas.</small
         ><small>Eles n&#227;o pertencem a um time fixo.</small>
       </div>
@@ -29,7 +28,7 @@
         ><span class="tag keeper-tag">Goleiro</span>
       </div>
     }
-    <div class="rotation-note">&#10227; Ordem de revezamento entre as partidas</div>
+    <div class="rotation-note">Ordem de revezamento entre as partidas</div>
   </div>
   @for (teamPlayers of teams; track $index; let teamIndex = $index) {
     <div
@@ -43,12 +42,12 @@
       [class.team-extra]="teamIndex > 5"
     >
       <div class="team-heading">
-        <strong>&#9823; Time {{ teamIndex + 1 }}</strong
+        <strong>Time {{ teamIndex + 1 }}</strong
         ><span>{{ teamPlayers.length }} jogadores</span>
       </div>
-      @for (player of teamPlayers; track player.name) {
+      @for (player of teamPlayers; track player.name; let playerIndex = $index) {
         <div class="player-row">
-          <span class="round-icon">{{ player.initials }}</span
+          <span class="round-icon">{{ playerIndex + 1 }}</span
           ><span class="player-name">{{ player.name }}</span
           ><span class="tag line-tag">Linha</span>
         </div>
@@ -63,7 +62,7 @@
         aria-label="Compartilhar times"
         (click)="shareTeams()"
       >
-        <span aria-hidden="true">&#10548;</span> Compartilhar
+        Compartilhar
       </button>
     }
   </div>
