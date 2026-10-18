@@ -79,6 +79,10 @@ export class AppComponent {
     this.players = this.playerService.remove(player);
   }
 
+  setPlayerSelected(player: Player, selected: boolean): void {
+    this.players = this.playerService.setSelected(player, selected);
+  }
+
   generateDraw(playersPerTeam: number): void {
     this.playersPerTeam = playersPerTeam;
     const selectedLinePlayers = this.players.filter(

@@ -16,6 +16,7 @@ export class DrawPageComponent {
   @Output() back = new EventEmitter<void>();
   @Output() generate = new EventEmitter<number>();
   @Output() playersPerTeamChange = new EventEmitter<number>();
+  @Output() selectionChange = new EventEmitter<{ player: Player; selected: boolean }>();
 
   get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
@@ -33,7 +34,7 @@ export class DrawPageComponent {
   }
 
   togglePlayer(player: Player): void {
-    player.selected = !player.selected;
+    this.selectionChange.emit({ player, selected: !player.selected });
   }
 
   decreasePlayersPerTeam(): void {

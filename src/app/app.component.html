@@ -24,6 +24,7 @@
         [playersPerTeam]="playersPerTeam"
         (back)="setTab('players')"
         (playersPerTeamChange)="playersPerTeam = $event"
+        (selectionChange)="setPlayerSelected($event.player, $event.selected)"
         (generate)="generateDraw($event); setTab('history')"
       />
     }

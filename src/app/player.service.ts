@@ -64,4 +64,11 @@ export class PlayerService {
     this.playerList = this.playerList.filter((player) => player !== playerToRemove);
     return this.playerList;
   }
+
+  setSelected(playerToUpdate: Player, selected: boolean): Player[] {
+    this.playerList = this.playerList.map((player) => player === playerToUpdate
+      ? { ...player, selected }
+      : player);
+    return this.playerList;
+  }
 }
