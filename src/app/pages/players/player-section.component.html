@@ -4,7 +4,7 @@
   [class.keeper-section]="type === 'goalkeeper'"
 >
   <div class="group-heading">
-    <span>{{ icon }}</span>
+    <span class="player-type-icon" aria-hidden="true">{{ typeIcon }}</span>
     <strong>{{ title }} ({{ total }})</strong>
     <span>›</span>
   </div>
@@ -25,7 +25,8 @@
         [class.line-tag]="type === 'line'"
         [class.keeper-tag]="type === 'goalkeeper'"
       >
-        {{ icon }} {{ typeLabel }}
+        <span class="player-type-icon" aria-hidden="true">{{ typeIcon }}</span>
+        {{ typeLabel }}
       </span>
       <button
         type="button"

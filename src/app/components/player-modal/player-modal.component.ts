@@ -10,7 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { Player, PlayerType } from '../../models';
-import { getPlayerNameError } from '../../player-utils';
+import { getPlayerNameError, getPlayerTypeIcon } from '../../player-utils';
 
 export interface PlayerFormValue {
   name: string;
@@ -41,6 +41,14 @@ export class PlayerModalComponent implements AfterViewInit, OnChanges {
 
   get isEditMode(): boolean {
     return this.mode === 'edit';
+  }
+
+  get typeIcon(): string {
+    return getPlayerTypeIcon(this.type);
+  }
+
+  getTypeIcon(type: PlayerType): string {
+    return getPlayerTypeIcon(type);
   }
 
   get nameError(): string {

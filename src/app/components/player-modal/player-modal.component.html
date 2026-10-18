@@ -46,10 +46,10 @@
       >
         <span class="position-value">
           @if (type === 'line') {
-            <span class="position-icon" aria-hidden="true">&#x1F3C3;</span>
+            <span class="position-icon" aria-hidden="true">{{ typeIcon }}</span>
             Linha
           } @else {
-            <span class="position-icon" aria-hidden="true">&#x1F590;</span>
+            <span class="position-icon" aria-hidden="true">{{ typeIcon }}</span>
             Goleiro
           }
         </span>
@@ -64,7 +64,7 @@
             [class.selected]="type === 'line'"
             (click)="selectType('line')"
           >
-            <span class="position-icon" aria-hidden="true">&#x1F3C3;</span>
+            <span class="position-icon" aria-hidden="true">{{ getTypeIcon('line') }}</span>
             Linha
           </button>
           <button
@@ -74,7 +74,7 @@
             [class.selected]="type === 'goalkeeper'"
             (click)="selectType('goalkeeper')"
           >
-            <span class="position-icon" aria-hidden="true">&#x1F590;</span>
+            <span class="position-icon" aria-hidden="true">{{ getTypeIcon('goalkeeper') }}</span>
             Goleiro
           </button>
         </div>

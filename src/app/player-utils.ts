@@ -1,4 +1,8 @@
-import type { Player } from './models';
+import type { Player, PlayerType } from './models';
+
+export function getPlayerTypeIcon(type: PlayerType): string {
+  return type === 'line' ? '\u{1F3C3}' : '\u{1F590}';
+}
 
 export function getPlayerInitials(name: string): string {
   return name

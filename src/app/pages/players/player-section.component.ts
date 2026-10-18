@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { Player, PlayerType } from '../../models';
+import { getPlayerTypeIcon } from '../../player-utils';
 
 @Component({
   selector: 'app-player-section',
@@ -24,6 +25,10 @@ export class PlayerSectionComponent {
 
   get typeLabel(): string {
     return this.type === 'line' ? 'Linha' : 'Goleiro';
+  }
+
+  get typeIcon(): string {
+    return getPlayerTypeIcon(this.type);
   }
 
   get visiblePlayers(): Player[] {
