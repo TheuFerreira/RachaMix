@@ -19,6 +19,7 @@ export class PlayersPageComponent {
 
   search = '';
   activeSection: 'all' | 'line' | 'goalkeeper' = 'all';
+  playerPendingRemoval: Player | null = null;
 
   get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
@@ -46,5 +47,20 @@ export class PlayersPageComponent {
 
   removePlayer(playerToRemove: Player): void {
     this.players = this.players.filter((player) => player !== playerToRemove);
+  }
+
+  requestRemovePlayer(player: Player): void {
+    this.playerPendingRemoval = player;
+  }
+
+  cancelRemovePlayer(): void {
+    this.playerPendingRemoval = null;
+  }
+
+  confirmRemovePlayer(): void {
+    if (this.playerPendingRemoval) {
+      this.removePlayer(this.playerPendingRemoval);
+      this.playerPendingRemoval = null;
+    }
   }
 }
