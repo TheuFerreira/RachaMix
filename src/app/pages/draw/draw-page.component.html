@@ -86,8 +86,12 @@
   <button
     class="primary-btn draw-action"
     type="button"
+    [disabled]="!canGenerate"
     (click)="generate.emit(playersPerTeam)"
   >
     ⚒　Gerar Times Aleatórios
   </button>
+  @if (generationError) {
+    <p class="draw-error" role="alert">{{ generationError }}</p>
+  }
 </section>

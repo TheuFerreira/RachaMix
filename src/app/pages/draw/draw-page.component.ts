@@ -21,6 +21,16 @@ export class DrawPageComponent {
   get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
   get selectedLinePlayers(): number { return this.linePlayers.filter((player) => player.selected).length; }
   get selectedGoalkeepers(): number { return this.goalkeepers.filter((player) => player.selected).length; }
+  get canGenerate(): boolean { return this.selectedLinePlayers >= 2 && this.playersPerTeam >= 2; }
+  get generationError(): string {
+    if (this.selectedLinePlayers === 0) {
+      return 'Selecione pelo menos dois jogadores de linha para sortear os times.';
+    }
+    if (this.selectedLinePlayers === 1) {
+      return 'Selecione mais um jogador de linha para sortear os times.';
+    }
+    return '';
+  }
 
   togglePlayer(player: Player): void {
     player.selected = !player.selected;

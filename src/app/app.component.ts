@@ -87,6 +87,12 @@ export class AppComponent {
       this.players.filter((player) => player.type === 'goalkeeper' && player.selected)
     );
 
+    if (selectedLinePlayers.length < 2 || playersPerTeam < 2) {
+      this.drawnTeams = [];
+      this.drawnGoalkeepers = [];
+      return;
+    }
+
     const teamCount = Math.ceil(selectedLinePlayers.length / playersPerTeam);
     this.drawnTeams = Array.from({ length: teamCount }, () => [] as Player[]);
     selectedLinePlayers.forEach((player, index) => {
