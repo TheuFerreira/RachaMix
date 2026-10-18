@@ -43,7 +43,7 @@ export class AppComponent {
 
   addPlayer(): void {
     const name = this.newPlayerName.trim();
-    if (!name) {
+    if (name.length < 2) {
       return;
     }
 
@@ -51,7 +51,8 @@ export class AppComponent {
       ...this.players,
       { name, initials: this.getInitials(name), type: this.newPlayerType, selected: true }
     ];
-    this.closeAddPlayerModal();
+    this.newPlayerName = '';
+    this.newPlayerType = 'line';
   }
 
   private getInitials(name: string): string {

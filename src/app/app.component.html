@@ -54,6 +54,7 @@
           [(ngModel)]="newPlayerName"
           placeholder="Digite o nome do jogador"
           autocomplete="off"
+          minlength="2"
           (keyup.enter)="addPlayer()"
         />
         <label for="player-type">Posição</label>
@@ -63,7 +64,7 @@
         </select>
         <div class="modal-actions">
           <button type="button" class="secondary-btn" (click)="closeAddPlayerModal()">Cancelar</button>
-          <button type="button" class="primary-btn" [disabled]="!newPlayerName.trim()" (click)="addPlayer()">
+          <button type="button" class="primary-btn" [disabled]="newPlayerName.trim().length < 2" (click)="addPlayer()">
             Adicionar
           </button>
         </div>
