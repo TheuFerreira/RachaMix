@@ -14,7 +14,11 @@ export default tseslint.config(
     }
   },
   {
-    files: ['src/app/app.component.ts', 'src/app/pages/results/results-page.component.ts'],
+    files: [
+      'src/app/app.component.ts',
+      'src/app/pages/results/results-page.component.ts',
+      'src/app/player.service.ts',
+    ],
     rules: {
       '@typescript-eslint/consistent-type-imports': 'off'
     }

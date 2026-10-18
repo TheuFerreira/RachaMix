@@ -9,6 +9,7 @@ import { PlayerModalComponent } from './components/player-modal/player-modal.com
 import { PlayerService } from './player.service';
 import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
 import { drawTeams, shufflePlayers } from './draw-utils';
+import { AppStorageService } from './app-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,19 @@ import { drawTeams, shufflePlayers } from './draw-utils';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  constructor(private readonly playerService: PlayerService) {}
+  constructor(
+    private readonly playerService: PlayerService,
+    private readonly storage: AppStorageService,
+  ) {
+    this.players = this.playerService.players;
+    const savedDraw = this.storage.loadDrawState();
+    this.playersPerTeam = savedDraw.playersPerTeam;
+    this.drawnTeams = savedDraw.drawnTeams;
+    this.drawnGoalkeepers = savedDraw.drawnGoalkeepers;
+  }
 
   activeTab: Tab = 'players';
-  players: Player[] = this.playerService.players;
+  players: Player[] = [];
   drawnTeams: Player[][] = [];
   drawnGoalkeepers: Player[] = [];
   playersPerTeam = 4;
@@ -39,6 +49,11 @@ export class AppComponent {
 
   setTab(tab: Tab): void {
     this.activeTab = tab;
+  }
+
+  setPlayersPerTeam(playersPerTeam: number): void {
+    this.playersPerTeam = playersPerTeam;
+    this.persistState();
   }
 
   openAddPlayerModal(): void {
@@ -69,6 +84,7 @@ export class AppComponent {
 
   addPlayer(form: PlayerFormValue): void {
     this.players = this.playerService.add(form);
+    this.persistState();
   }
 
   saveEditedPlayer(form: PlayerFormValue): void {
@@ -77,20 +93,24 @@ export class AppComponent {
     }
 
     this.players = this.playerService.update(this.editingPlayer, form);
+    this.persistState();
     this.closeEditPlayerModal();
   }
 
   importPlayers(names: string[]): void {
     this.players = this.playerService.importLinePlayers(names);
+    this.persistState();
     this.closeImportPlayersModal();
   }
 
   removePlayer(player: Player): void {
     this.players = this.playerService.remove(player);
+    this.persistState();
   }
 
   setPlayerSelected(player: Player, selected: boolean): void {
     this.players = this.playerService.setSelected(player, selected);
+    this.persistState();
   }
 
   generateDraw(playersPerTeam: number): void {
@@ -105,14 +125,27 @@ export class AppComponent {
     if (selectedLinePlayers.length < 2 || playersPerTeam < 2) {
       this.drawnTeams = [];
       this.drawnGoalkeepers = [];
+      this.persistState();
       return;
     }
 
     this.drawnTeams = drawTeams(selectedLinePlayers, playersPerTeam);
     this.drawnGoalkeepers = selectedGoalkeepers;
+    this.persistState();
   }
 
   redraw(): void {
     this.generateDraw(this.playersPerTeam);
+  }
+
+  private persistState(): void {
+    this.storage.saveDrawState(
+      {
+        playersPerTeam: this.playersPerTeam,
+        drawnTeams: this.drawnTeams,
+        drawnGoalkeepers: this.drawnGoalkeepers,
+      },
+      this.players,
+    );
   }
 }

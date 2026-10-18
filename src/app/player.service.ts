@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import type { Player, PlayerType } from './models';
 import { getPlayerInitials } from './player-utils';
+import { AppStorageService } from './app-storage.service';
 
 export interface PlayerInput {
   name: string;
@@ -9,7 +10,7 @@ export interface PlayerInput {
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
-  private playerList: Player[] = [
+  private readonly defaultPlayers: Player[] = [
     { name: 'Pedro', initials: 'PE', type: 'line', selected: true },
     { name: 'Lucas', initials: 'LU', type: 'line', selected: true },
     { name: 'Gabriel', initials: 'GA', type: 'line', selected: true },
@@ -20,6 +21,11 @@ export class PlayerService {
     { name: 'Fernando', initials: 'FE', type: 'goalkeeper', selected: true },
     { name: 'Vinicius', initials: 'VI', type: 'goalkeeper', selected: true },
   ];
+  private playerList: Player[];
+
+  constructor(private readonly storage: AppStorageService) {
+    this.playerList = this.storage.loadPlayers(this.defaultPlayers);
+  }
 
   get players(): Player[] {
     return this.playerList;
@@ -35,6 +41,7 @@ export class PlayerService {
         selected: true,
       },
     ];
+    this.storage.savePlayers(this.playerList);
     return this.playerList;
   }
 
@@ -59,6 +66,7 @@ export class PlayerService {
       }));
 
     this.playerList = [...this.playerList, ...importedPlayers];
+    this.storage.savePlayers(this.playerList);
     return this.playerList;
   }
 
@@ -68,11 +76,13 @@ export class PlayerService {
         ? { ...player, name: input.name, initials: getPlayerInitials(input.name), type: input.type }
         : player,
     );
+    this.storage.savePlayers(this.playerList);
     return this.playerList;
   }
 
   remove(playerToRemove: Player): Player[] {
     this.playerList = this.playerList.filter((player) => player !== playerToRemove);
+    this.storage.savePlayers(this.playerList);
     return this.playerList;
   }
 
@@ -80,6 +90,7 @@ export class PlayerService {
     this.playerList = this.playerList.map((player) =>
       player === playerToUpdate ? { ...player, selected } : player,
     );
+    this.storage.savePlayers(this.playerList);
     return this.playerList;
   }
 }
