@@ -1,0 +1,32 @@
+<div class="modal-backdrop" (click)="close()">
+  <section
+    class="import-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="import-players-title"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="modal-header">
+      <div>
+        <h2 id="import-players-title">Importar jogadores</h2>
+        <p>Digite um nome por linha. Todos serão cadastrados como jogadores de linha.</p>
+      </div>
+      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">×</button>
+    </div>
+    <label for="players-list">Lista de nomes</label>
+    <textarea
+      id="players-list"
+      [(ngModel)]="names"
+      placeholder="Pedro Silva&#10;Lucas Souza&#10;Maria Clara"
+      rows="8"
+      aria-describedby="import-help"
+    ></textarea>
+    <small id="import-help" class="import-help">
+      {{ importedCount }} {{ importedCount === 1 ? 'jogador válido' : 'jogadores válidos' }}
+    </small>
+    <div class="modal-actions">
+      <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
+      <button type="button" class="primary-btn" [disabled]="importedCount === 0" (click)="import()">Importar</button>
+    </div>
+  </section>
+</div>

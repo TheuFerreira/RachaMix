@@ -2,7 +2,7 @@
   <div class="screen-title">
     <div class="title-icon">⚽</div>
     <h1>Jogadores</h1>
-    <button class="icon-btn">⚙</button>
+    <button class="icon-btn" aria-label="Importar jogadores" title="Importar jogadores" (click)="importPlayers.emit()">⚙</button>
   </div>
   <div class="segmented">
     <button [class.active]="activeSection === 'all'" (click)="setSection('all')">

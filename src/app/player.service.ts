@@ -29,6 +29,30 @@ export class PlayerService {
     return this.playerList;
   }
 
+  importLinePlayers(names: string[]): Player[] {
+    const existingNames = new Set(this.playerList.map((player) => player.name.toLocaleLowerCase()));
+    const importedPlayers = names
+      .map((name) => name.trim())
+      .filter((name) => name.length > 0)
+      .filter((name) => {
+        const normalizedName = name.toLocaleLowerCase();
+        if (existingNames.has(normalizedName)) {
+          return false;
+        }
+        existingNames.add(normalizedName);
+        return true;
+      })
+      .map((name) => ({
+        name,
+        initials: getPlayerInitials(name),
+        type: 'line' as const,
+        selected: true
+      }));
+
+    this.playerList = [...this.playerList, ...importedPlayers];
+    return this.playerList;
+  }
+
   update(playerToUpdate: Player, input: PlayerInput): Player[] {
     this.playerList = this.playerList.map((player) => player === playerToUpdate
       ? { ...player, name: input.name, initials: getPlayerInitials(input.name), type: input.type }

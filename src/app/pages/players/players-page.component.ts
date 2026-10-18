@@ -16,6 +16,7 @@ export class PlayersPageComponent {
   @Input({ required: true }) players: Player[] = [];
   @Output() add = new EventEmitter<void>();
   @Output() edit = new EventEmitter<Player>();
+  @Output() importPlayers = new EventEmitter<void>();
 
   search = '';
   activeSection: 'all' | 'line' | 'goalkeeper' = 'all';

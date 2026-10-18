@@ -10,7 +10,7 @@ import { PlayerService } from './player.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, PlayersPageComponent, DrawPageComponent, ResultsPageComponent, PlayerModalComponent],
+  imports: [CommonModule, PlayersPageComponent, DrawPageComponent, ResultsPageComponent, PlayerModalComponent, ImportPlayersModalComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html'
 })
@@ -24,6 +24,7 @@ export class AppComponent {
   playersPerTeam = 4;
   isAddPlayerModalOpen = false;
   isEditPlayerModalOpen = false;
+  isImportPlayersModalOpen = false;
   editingPlayer: Player | null = null;
 
   setTab(tab: Tab): void { this.activeTab = tab; }
@@ -46,6 +47,14 @@ export class AppComponent {
     this.editingPlayer = null;
   }
 
+  openImportPlayersModal(): void {
+    this.isImportPlayersModalOpen = true;
+  }
+
+  closeImportPlayersModal(): void {
+    this.isImportPlayersModalOpen = false;
+  }
+
   addPlayer(form: PlayerFormValue): void {
     this.players = this.playerService.add(form);
   }
@@ -57,6 +66,11 @@ export class AppComponent {
 
     this.players = this.playerService.update(this.editingPlayer, form);
     this.closeEditPlayerModal();
+  }
+
+  importPlayers(names: string[]): void {
+    this.players = this.playerService.importLinePlayers(names);
+    this.closeImportPlayersModal();
   }
 
   generateDraw(playersPerTeam: number): void {
