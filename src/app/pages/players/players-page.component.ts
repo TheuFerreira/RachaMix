@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Player } from '../../models';
+import type { Player } from '../../models';
 import { PlayerSectionComponent } from './player-section.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { PlayerSectionComponent } from './player-section.component';
   imports: [CommonModule, FormsModule, PlayerSectionComponent],
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayersPageComponent {
   @Input({ required: true }) players: Player[] = [];
@@ -23,8 +23,12 @@ export class PlayersPageComponent {
   activeSection: 'all' | 'line' | 'goalkeeper' = 'all';
   playerPendingRemoval: Player | null = null;
 
-  get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
-  get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
+  get linePlayers(): Player[] {
+    return this.players.filter((player) => player.type === 'line');
+  }
+  get goalkeepers(): Player[] {
+    return this.players.filter((player) => player.type === 'goalkeeper');
+  }
   get filteredPlayers(): Player[] {
     const search = this.search.toLowerCase();
 

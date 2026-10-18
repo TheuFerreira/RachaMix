@@ -6,7 +6,7 @@ const players = Array.from({ length: 10 }, (_, index) => ({
   name: 'Player ' + (index + 1),
   initials: 'P' + (index + 1),
   type: 'line',
-  selected: true
+  selected: true,
 }));
 
 test('distribui todos os jogadores em times equilibrados', () => {
@@ -19,8 +19,14 @@ test('distribui todos os jogadores em times equilibrados', () => {
 });
 
 test('não cria times com dados insuficientes', () => {
-  assert.deepEqual(drawTeams(players.slice(0, 1), 4, () => 0.5), []);
-  assert.deepEqual(drawTeams(players, 1, () => 0.5), []);
+  assert.deepEqual(
+    drawTeams(players.slice(0, 1), 4, () => 0.5),
+    [],
+  );
+  assert.deepEqual(
+    drawTeams(players, 1, () => 0.5),
+    [],
+  );
 });
 
 test('embaralha sem alterar a lista original', () => {
@@ -29,7 +35,10 @@ test('embaralha sem alterar a lista original', () => {
   assert.equal(shuffled.length, players.length);
   assert.deepEqual(
     players.map((player) => player.name),
-    Array.from({ length: 10 }, (_, index) => 'Player ' + (index + 1))
+    Array.from({ length: 10 }, (_, index) => 'Player ' + (index + 1)),
   );
-  assert.notDeepEqual(shuffled.map((player) => player.name), players.map((player) => player.name));
+  assert.notDeepEqual(
+    shuffled.map((player) => player.name),
+    players.map((player) => player.name),
+  );
 });

@@ -1,13 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import type { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Player } from '../../models';
+import type { Player } from '../../models';
 
 @Component({
   selector: 'app-results-page',
@@ -15,7 +9,7 @@ import { Player } from '../../models';
   imports: [CommonModule],
   templateUrl: './results-page.component.html',
   styleUrl: './results-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsPageComponent {
   @Input({ required: true }) players: Player[] = [];
@@ -35,7 +29,7 @@ export class ResultsPageComponent {
       try {
         await navigator.share({
           title: 'RachaMix - Times sorteados',
-          text: result
+          text: result,
         });
         return;
       } catch (shareError) {
@@ -63,9 +57,8 @@ export class ResultsPageComponent {
       } catch (fallbackError) {
         console.error('Erro ao copiar os times para a área de transferência.', {
           clipboardError,
-          fallbackError
+          fallbackError,
         });
-        copied = false;
       }
     }
 
@@ -82,14 +75,17 @@ export class ResultsPageComponent {
     }, 2000);
   }
 
- formatTeamsForWhatsApp(): string {
-   const goalkeepers = this.goalkeepers.length
+  formatTeamsForWhatsApp(): string {
+    const goalkeepers = this.goalkeepers.length
       ? `*Goleiros em revezamento:*\n${this.goalkeepers.map((player) => `• ${player.name}`).join('\n')}\n\n`
-     : '';
-   const teams = this.teams
-      .map((team, index) => `*Time ${index + 1}* (${team.length} jogadores)\n${team.map((player) => `• ${player.name}`).join('\n')}`)
-     .join('\n\n');
+      : '';
+    const teams = this.teams
+      .map(
+        (team, index) =>
+          `*Time ${index + 1}* (${team.length} jogadores)\n${team.map((player) => `• ${player.name}`).join('\n')}`,
+      )
+      .join('\n\n');
 
     return `*RachaMix — Times sorteados*\n\n${goalkeepers}${teams}`;
- }
+  }
 }

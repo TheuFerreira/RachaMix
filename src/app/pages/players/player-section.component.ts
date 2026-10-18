@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Player, PlayerType } from '../../models';
+import type { Player, PlayerType } from '../../models';
 
 @Component({
   selector: 'app-player-section',
@@ -8,7 +8,7 @@ import { Player, PlayerType } from '../../models';
   imports: [CommonModule],
   templateUrl: './player-section.component.html',
   styleUrl: './player-section.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerSectionComponent {
   @Input({ required: true }) title = '';

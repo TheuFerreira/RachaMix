@@ -15,13 +15,17 @@
         −
       </button>
       <strong>{{ playersPerTeam }}</strong>
-      <button type="button" aria-label="Aumentar jogadores por time" (click)="increasePlayersPerTeam()">
+      <button
+        type="button"
+        aria-label="Aumentar jogadores por time"
+        (click)="increasePlayersPerTeam()"
+      >
         ＋
       </button>
     </div>
     <small>
-      O número de times é calculado automaticamente com base na quantidade de
-      jogadores de linha selecionados.
+      O número de times é calculado automaticamente com base na quantidade de jogadores de linha
+      selecionados.
     </small>
   </div>
 
@@ -30,10 +34,7 @@
       <span>🖐</span>
       <div>
         <strong>Goleiros em revezamento ({{ selectedGoalkeepers }})</strong>
-        <small
-          >Estes goleiros vão se revezar entre as partidas e não entram nos
-          times fixos.</small
-        >
+        <small>Estes goleiros vão se revezar entre as partidas e não entram nos times fixos.</small>
       </div>
       <span>ⓘ</span>
     </div>
@@ -44,9 +45,7 @@
         [class.player-selected]="player.selected"
         (click)="togglePlayer(player)"
         [attr.aria-pressed]="player.selected"
-        [attr.aria-label]="
-          (player.selected ? 'Desmarcar ' : 'Marcar ') + player.name
-        "
+        [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
         <span class="avatar">{{ player.initials }}</span>
         <span class="player-name">{{ player.name }}</span>
@@ -72,9 +71,7 @@
         [class.player-selected]="player.selected"
         (click)="togglePlayer(player)"
         [attr.aria-pressed]="player.selected"
-        [attr.aria-label]="
-          (player.selected ? 'Desmarcar ' : 'Marcar ') + player.name
-        "
+        [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
         <span class="avatar">{{ player.initials }}</span>
         <span class="player-name">{{ player.name }}</span>

@@ -4,7 +4,7 @@ import { getPlayerInitials, getPlayerNameError } from '../src/app/player-utils.t
 
 const players = [
   { name: 'Pedro Silva', initials: 'PS', type: 'line', selected: true },
-  { name: 'Lucas', initials: 'LU', type: 'line', selected: true }
+  { name: 'Lucas', initials: 'LU', type: 'line', selected: true },
 ];
 
 test('gera iniciais usando os dois primeiros nomes', () => {

@@ -1,6 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import type { AfterViewInit, ElementRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Player } from '../../models';
+import type { Player } from '../../models';
 
 @Component({
   selector: 'app-import-players-modal',
@@ -8,7 +16,7 @@ import { Player } from '../../models';
   imports: [FormsModule],
   templateUrl: './import-players-modal.component.html',
   styleUrl: './import-players-modal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportPlayersModalComponent implements AfterViewInit {
   @Output() closed = new EventEmitter<void>();
@@ -45,9 +53,11 @@ export class ImportPlayersModalComponent implements AfterViewInit {
       return;
     }
 
-    const focusable = Array.from(this.modal.nativeElement.querySelectorAll<HTMLElement>(
-      'button, textarea, input, [tabindex]:not([tabindex="-1"])'
-    ));
+    const focusable = Array.from(
+      this.modal.nativeElement.querySelectorAll<HTMLElement>(
+        'button, textarea, input, [tabindex]:not([tabindex="-1"])',
+      ),
+    );
     if (focusable.length === 0) {
       return;
     }
@@ -72,7 +82,8 @@ export class ImportPlayersModalComponent implements AfterViewInit {
 
   private getNames(): string[] {
     const uniqueNames = new Map<string, string>();
-    this.names.split(/\r?\n/)
+    this.names
+      .split(/\r?\n/)
       .map((name) => name.trim())
       .filter(Boolean)
       .forEach((name) => uniqueNames.set(name.toLocaleLowerCase(), name));
@@ -81,7 +92,7 @@ export class ImportPlayersModalComponent implements AfterViewInit {
 
   private getImportableNames(): string[] {
     const existingNames = new Set(
-      this.existingPlayers.map((player) => player.name.trim().toLocaleLowerCase())
+      this.existingPlayers.map((player) => player.name.trim().toLocaleLowerCase()),
     );
     return this.getNames().filter((name) => !existingNames.has(name.toLocaleLowerCase()));
   }

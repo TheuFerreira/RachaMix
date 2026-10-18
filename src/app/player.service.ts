@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Player, PlayerType } from './models';
+import type { Player, PlayerType } from './models';
 import { getPlayerInitials } from './player-utils';
 
 export interface PlayerInput {
@@ -10,11 +10,15 @@ export interface PlayerInput {
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
   private playerList: Player[] = [
-    { name: 'Pedro', initials: 'PE', type: 'line', selected: true }, { name: 'Lucas', initials: 'LU', type: 'line', selected: true },
-    { name: 'Gabriel', initials: 'GA', type: 'line', selected: true }, { name: 'Rafael', initials: 'RA', type: 'line', selected: true },
-    { name: 'Bruno', initials: 'BR', type: 'line', selected: true }, { name: 'Diego', initials: 'DI', type: 'line', selected: true },
-    { name: 'Matheus', initials: 'MA', type: 'goalkeeper', selected: true }, { name: 'Fernando', initials: 'FE', type: 'goalkeeper', selected: true },
-    { name: 'Vinicius', initials: 'VI', type: 'goalkeeper', selected: true }
+    { name: 'Pedro', initials: 'PE', type: 'line', selected: true },
+    { name: 'Lucas', initials: 'LU', type: 'line', selected: true },
+    { name: 'Gabriel', initials: 'GA', type: 'line', selected: true },
+    { name: 'Rafael', initials: 'RA', type: 'line', selected: true },
+    { name: 'Bruno', initials: 'BR', type: 'line', selected: true },
+    { name: 'Diego', initials: 'DI', type: 'line', selected: true },
+    { name: 'Matheus', initials: 'MA', type: 'goalkeeper', selected: true },
+    { name: 'Fernando', initials: 'FE', type: 'goalkeeper', selected: true },
+    { name: 'Vinicius', initials: 'VI', type: 'goalkeeper', selected: true },
   ];
 
   get players(): Player[] {
@@ -24,7 +28,12 @@ export class PlayerService {
   add(input: PlayerInput): Player[] {
     this.playerList = [
       ...this.playerList,
-      { name: input.name, initials: getPlayerInitials(input.name), type: input.type, selected: true }
+      {
+        name: input.name,
+        initials: getPlayerInitials(input.name),
+        type: input.type,
+        selected: true,
+      },
     ];
     return this.playerList;
   }
@@ -46,7 +55,7 @@ export class PlayerService {
         name,
         initials: getPlayerInitials(name),
         type: 'line' as const,
-        selected: true
+        selected: true,
       }));
 
     this.playerList = [...this.playerList, ...importedPlayers];
@@ -54,9 +63,11 @@ export class PlayerService {
   }
 
   update(playerToUpdate: Player, input: PlayerInput): Player[] {
-    this.playerList = this.playerList.map((player) => player === playerToUpdate
-      ? { ...player, name: input.name, initials: getPlayerInitials(input.name), type: input.type }
-      : player);
+    this.playerList = this.playerList.map((player) =>
+      player === playerToUpdate
+        ? { ...player, name: input.name, initials: getPlayerInitials(input.name), type: input.type }
+        : player,
+    );
     return this.playerList;
   }
 
@@ -66,9 +77,9 @@ export class PlayerService {
   }
 
   setSelected(playerToUpdate: Player, selected: boolean): Player[] {
-    this.playerList = this.playerList.map((player) => player === playerToUpdate
-      ? { ...player, selected }
-      : player);
+    this.playerList = this.playerList.map((player) =>
+      player === playerToUpdate ? { ...player, selected } : player,
+    );
     return this.playerList;
   }
 }

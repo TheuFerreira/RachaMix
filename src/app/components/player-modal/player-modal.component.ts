@@ -1,7 +1,15 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import type { AfterViewInit, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Player, PlayerType } from '../../models';
+import type { Player, PlayerType } from '../../models';
 import { getPlayerNameError } from '../../player-utils';
 
 export interface PlayerFormValue {
@@ -15,7 +23,7 @@ export interface PlayerFormValue {
   imports: [CommonModule, FormsModule],
   templateUrl: './player-modal.component.html',
   styleUrl: './player-modal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerModalComponent implements AfterViewInit, OnChanges {
   @Input() mode: 'add' | 'edit' = 'add';
@@ -80,9 +88,11 @@ export class PlayerModalComponent implements AfterViewInit, OnChanges {
       return;
     }
 
-    const focusable = Array.from(this.modal.nativeElement.querySelectorAll<HTMLElement>(
-      'button, input, [tabindex]:not([tabindex="-1"])'
-    ));
+    const focusable = Array.from(
+      this.modal.nativeElement.querySelectorAll<HTMLElement>(
+        'button, input, [tabindex]:not([tabindex="-1"])',
+      ),
+    );
     if (focusable.length === 0) {
       return;
     }

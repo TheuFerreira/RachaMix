@@ -42,14 +42,9 @@
   }
 
   @if (collapsible && players.length > 5) {
-    <button
-      type="button"
-      class="see-all"
-      [attr.aria-expanded]="showAll"
-      (click)="toggleExpanded()"
-    >
-      {{ showAll ? "Ver menos" : "Ver todos" }} ({{ players.length }})
-      <span>{{ showAll ? "⌃" : "⌄" }}</span>
+    <button type="button" class="see-all" [attr.aria-expanded]="showAll" (click)="toggleExpanded()">
+      {{ showAll ? 'Ver menos' : 'Ver todos' }} ({{ players.length }})
+      <span>{{ showAll ? '⌃' : '⌄' }}</span>
     </button>
   }
 </div>

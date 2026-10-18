@@ -2,7 +2,14 @@
   <div class="screen-title">
     <div class="title-icon">⚽</div>
     <h1>Jogadores</h1>
-    <button class="icon-btn" aria-label="Importar jogadores" title="Importar jogadores" (click)="importPlayers.emit()">⚙</button>
+    <button
+      class="icon-btn"
+      aria-label="Importar jogadores"
+      title="Importar jogadores"
+      (click)="importPlayers.emit()"
+    >
+      ⚙
+    </button>
   </div>
   <div class="segmented">
     <button [class.active]="activeSection === 'all'" (click)="setSection('all')">
@@ -18,11 +25,7 @@
   <div class="search-row">
     <div class="search-box">
       🔍
-      <input
-        [(ngModel)]="search"
-        placeholder="Buscar jogador..."
-        aria-label="Buscar jogador"
-      />
+      <input [(ngModel)]="search" placeholder="Buscar jogador..." aria-label="Buscar jogador" />
     </div>
   </div>
 
@@ -61,16 +64,19 @@
         (click)="$event.stopPropagation()"
       >
         <h2 id="remove-player-title">Excluir jogador?</h2>
-        <p>Tem certeza que deseja excluir <strong>{{ playerPendingRemoval.name }}</strong>?</p>
+        <p>
+          Tem certeza que deseja excluir <strong>{{ playerPendingRemoval.name }}</strong
+          >?
+        </p>
         <div class="remove-actions">
-          <button type="button" class="secondary-btn" (click)="cancelRemovePlayer()">Cancelar</button>
+          <button type="button" class="secondary-btn" (click)="cancelRemovePlayer()">
+            Cancelar
+          </button>
           <button type="button" class="danger-btn" (click)="confirmRemovePlayer()">Excluir</button>
         </div>
       </section>
     </div>
   }
 
-  <button class="primary-btn add-player" (click)="add.emit()">
-    ＋　Adicionar jogador
-  </button>
+  <button class="primary-btn add-player" (click)="add.emit()">＋　Adicionar jogador</button>
 </section>

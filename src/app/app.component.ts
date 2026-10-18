@@ -3,18 +3,26 @@ import { CommonModule } from '@angular/common';
 import { PlayersPageComponent } from './pages/players/players-page.component';
 import { DrawPageComponent } from './pages/draw/draw-page.component';
 import { ResultsPageComponent } from './pages/results/results-page.component';
-import { Player, Tab } from './models';
-import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
-import { PlayerService } from './player.service';
+import type { Player, Tab } from './models';
+import type { PlayerFormValue } from './components/player-modal/player-modal.component';
+import { PlayerModalComponent } from './components/player-modal/player-modal.component';
+import type { PlayerService } from './player.service';
 import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
 import { drawTeams, shufflePlayers } from './draw-utils';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, PlayersPageComponent, DrawPageComponent, ResultsPageComponent, PlayerModalComponent, ImportPlayersModalComponent],
+  imports: [
+    CommonModule,
+    PlayersPageComponent,
+    DrawPageComponent,
+    ResultsPageComponent,
+    PlayerModalComponent,
+    ImportPlayersModalComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   constructor(private readonly playerService: PlayerService) {}
@@ -29,7 +37,9 @@ export class AppComponent {
   isImportPlayersModalOpen = false;
   editingPlayer: Player | null = null;
 
-  setTab(tab: Tab): void { this.activeTab = tab; }
+  setTab(tab: Tab): void {
+    this.activeTab = tab;
+  }
 
   openAddPlayerModal(): void {
     this.isAddPlayerModalOpen = true;
@@ -86,10 +96,10 @@ export class AppComponent {
   generateDraw(playersPerTeam: number): void {
     this.playersPerTeam = playersPerTeam;
     const selectedLinePlayers = this.players.filter(
-      (player) => player.type === 'line' && player.selected
+      (player) => player.type === 'line' && player.selected,
     );
     const selectedGoalkeepers = shufflePlayers(
-      this.players.filter((player) => player.type === 'goalkeeper' && player.selected)
+      this.players.filter((player) => player.type === 'goalkeeper' && player.selected),
     );
 
     if (selectedLinePlayers.length < 2 || playersPerTeam < 2) {
@@ -105,5 +115,4 @@ export class AppComponent {
   redraw(): void {
     this.generateDraw(this.playersPerTeam);
   }
-
 }

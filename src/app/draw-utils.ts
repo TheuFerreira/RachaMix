@@ -14,7 +14,7 @@ export function shufflePlayers(players: Player[], random: () => number = Math.ra
 export function drawTeams(
   players: Player[],
   playersPerTeam: number,
-  random: () => number = Math.random
+  random: () => number = Math.random,
 ): Player[][] {
   if (players.length < 2 || playersPerTeam < 2) {
     return [];

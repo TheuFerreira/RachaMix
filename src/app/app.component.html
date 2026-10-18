@@ -9,7 +9,7 @@
   </header>
 
   <section class="screen-grid">
-    @if (activeTab === "players") {
+    @if (activeTab === 'players') {
       <app-players-page
         [players]="players"
         (add)="openAddPlayerModal()"
@@ -18,7 +18,7 @@
         (remove)="removePlayer($event)"
       />
     }
-    @if (activeTab === "draw") {
+    @if (activeTab === 'draw') {
       <app-draw-page
         [players]="players"
         [playersPerTeam]="playersPerTeam"
@@ -28,7 +28,7 @@
         (generate)="generateDraw($event); setTab('history')"
       />
     }
-    @if (activeTab === "history") {
+    @if (activeTab === 'history') {
       <app-results-page
         [players]="players"
         [teams]="drawnTeams"
@@ -67,19 +67,13 @@
   }
 
   <nav class="bottom-nav">
-    <button
-      [class.active]="activeTab === 'players'"
-      (click)="setTab('players')"
-    >
+    <button [class.active]="activeTab === 'players'" (click)="setTab('players')">
       <span>♟</span>Jogadores
     </button>
     <button [class.active]="activeTab === 'draw'" (click)="setTab('draw')">
       <span>♧</span>Sortear
     </button>
-    <button
-      [class.active]="activeTab === 'history'"
-      (click)="setTab('history')"
-    >
+    <button [class.active]="activeTab === 'history'" (click)="setTab('history')">
       <span>◷</span>Times sorteados
     </button>
   </nav>

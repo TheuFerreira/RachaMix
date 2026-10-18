@@ -10,14 +10,19 @@ export function getPlayerInitials(name: string): string {
     .toUpperCase();
 }
 
-export function getPlayerNameError(name: string, players: Player[], currentPlayer: Player | null = null): string {
+export function getPlayerNameError(
+  name: string,
+  players: Player[],
+  currentPlayer: Player | null = null,
+): string {
   const normalizedName = name.trim().toLocaleLowerCase();
   if (normalizedName.length > 0 && normalizedName.length < 2) {
     return 'Digite pelo menos 2 caracteres.';
   }
 
-  const duplicated = players.some((player) =>
-    player !== currentPlayer && player.name.trim().toLocaleLowerCase() === normalizedName
+  const duplicated = players.some(
+    (player) =>
+      player !== currentPlayer && player.name.trim().toLocaleLowerCase() === normalizedName,
   );
   return duplicated ? 'Já existe um jogador com esse nome.' : '';
 }

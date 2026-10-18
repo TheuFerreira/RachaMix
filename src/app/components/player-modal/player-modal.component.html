@@ -81,7 +81,12 @@
 
     <div class="modal-actions">
       <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
-      <button type="button" class="primary-btn" [disabled]="name.trim().length < 2 || !!nameError" (click)="save()">
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="name.trim().length < 2 || !!nameError"
+        (click)="save()"
+      >
         {{ isEditMode ? 'Salvar' : 'Adicionar' }}
       </button>
     </div>

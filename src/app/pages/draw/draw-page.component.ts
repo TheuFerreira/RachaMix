@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Player } from '../../models';
+import type { Player } from '../../models';
 
 @Component({
   selector: 'app-draw-page',
@@ -8,7 +8,7 @@ import { Player } from '../../models';
   imports: [CommonModule],
   templateUrl: './draw-page.component.html',
   styleUrl: './draw-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DrawPageComponent {
   @Input({ required: true }) players: Player[] = [];
@@ -18,11 +18,21 @@ export class DrawPageComponent {
   @Output() playersPerTeamChange = new EventEmitter<number>();
   @Output() selectionChange = new EventEmitter<{ player: Player; selected: boolean }>();
 
-  get linePlayers(): Player[] { return this.players.filter((player) => player.type === 'line'); }
-  get goalkeepers(): Player[] { return this.players.filter((player) => player.type === 'goalkeeper'); }
-  get selectedLinePlayers(): number { return this.linePlayers.filter((player) => player.selected).length; }
-  get selectedGoalkeepers(): number { return this.goalkeepers.filter((player) => player.selected).length; }
-  get canGenerate(): boolean { return this.selectedLinePlayers >= 2 && this.playersPerTeam >= 2; }
+  get linePlayers(): Player[] {
+    return this.players.filter((player) => player.type === 'line');
+  }
+  get goalkeepers(): Player[] {
+    return this.players.filter((player) => player.type === 'goalkeeper');
+  }
+  get selectedLinePlayers(): number {
+    return this.linePlayers.filter((player) => player.selected).length;
+  }
+  get selectedGoalkeepers(): number {
+    return this.goalkeepers.filter((player) => player.selected).length;
+  }
+  get canGenerate(): boolean {
+    return this.selectedLinePlayers >= 2 && this.playersPerTeam >= 2;
+  }
   get generationError(): string {
     if (this.selectedLinePlayers === 0) {
       return 'Selecione pelo menos dois jogadores de linha para sortear os times.';
