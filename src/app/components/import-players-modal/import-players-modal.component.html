@@ -11,9 +11,11 @@
     <div class="modal-header">
       <div>
         <h2 id="import-players-title">Importar jogadores</h2>
-        <p>Digite um nome por linha. Todos serão cadastrados como jogadores de linha.</p>
+        <p>Digite um nome por linha. Todos ser&#227;o cadastrados como jogadores de linha.</p>
       </div>
-      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">×</button>
+      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">
+        &times;
+      </button>
     </div>
     <label for="players-list">Lista de nomes</label>
     <textarea
@@ -24,10 +26,13 @@
       aria-describedby="import-help"
     ></textarea>
     <small id="import-help" class="import-help">
-      {{ importedCount }} {{ importedCount === 1 ? 'jogador válido' : 'jogadores válidos' }}
+      {{ importedCount }}
+      {{ importedCount === 1 ? 'jogador v&#225;lido' : 'jogadores v&#225;lidos' }}
       @if (duplicateCount > 0) {
         {{ duplicateCount }}
-        {{ duplicateCount === 1 ? 'duplicado será ignorado' : 'duplicados serão ignorados' }}.
+        {{
+          duplicateCount === 1 ? 'duplicado ser&#225; ignorado' : 'duplicados ser&#227;o ignorados'
+        }}.
       }
     </small>
     <div class="modal-actions">

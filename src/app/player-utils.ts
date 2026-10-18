@@ -24,5 +24,5 @@ export function getPlayerNameError(
     (player) =>
       player !== currentPlayer && player.name.trim().toLocaleLowerCase() === normalizedName,
   );
-  return duplicated ? 'Já existe um jogador com esse nome.' : '';
+  return duplicated ? 'J\u00E1 existe um jogador com esse nome.' : '';
 }

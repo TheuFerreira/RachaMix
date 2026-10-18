@@ -12,7 +12,9 @@
       <h2 [id]="isEditMode ? 'edit-player-title' : 'add-player-title'">
         {{ isEditMode ? 'Editar jogador' : 'Adicionar jogador' }}
       </h2>
-      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">×</button>
+      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">
+        &times;
+      </button>
     </div>
 
     <label for="player-modal-name">Nome</label>
@@ -44,10 +46,10 @@
       >
         <span class="position-value">
           @if (type === 'line') {
-            <span class="position-icon" aria-hidden="true">🏃</span>
+            <span class="position-icon" aria-hidden="true">&#9917;</span>
             Linha
           } @else {
-            <span class="position-icon" aria-hidden="true">🖐</span>
+            <span class="position-icon" aria-hidden="true">&#129354;</span>
             Goleiro
           }
         </span>
@@ -62,7 +64,7 @@
             [class.selected]="type === 'line'"
             (click)="selectType('line')"
           >
-            <span class="position-icon" aria-hidden="true">🏃</span>
+            <span class="position-icon" aria-hidden="true">&#9917;</span>
             Linha
           </button>
           <button
@@ -72,7 +74,7 @@
             [class.selected]="type === 'goalkeeper'"
             (click)="selectType('goalkeeper')"
           >
-            <span class="position-icon" aria-hidden="true">🖐</span>
+            <span class="position-icon" aria-hidden="true">&#129354;</span>
             Goleiro
           </button>
         </div>

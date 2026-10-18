@@ -1,36 +1,36 @@
 <section class="phone-screen result-screen">
   <div class="screen-title centered">
-    <button class="back-btn" (click)="back.emit()">‹</button>
-    <h1>Times Sorteados</h1>
+    <button class="back-btn" aria-label="Voltar para o sorteio" (click)="back.emit()">
+      &lsaquo;
+    </button>
+    <h1>Times sorteados</h1>
     <button
       class="icon-btn"
       type="button"
       aria-label="Sortear times novamente"
       (click)="redraw.emit()"
     >
-      ⟳
+      &#8635;
     </button>
   </div>
-
   <div class="rotation-card">
     <div class="card-heading keeper-color">
-      <span>🖐</span>
+      <span aria-hidden="true">&#129354;</span>
       <div>
-        <strong>Goleiros em revezamento <sup>ⓘ</sup></strong>
-        <small>Estes goleiros vão se revezar entre as partidas.</small>
-        <small>Eles não pertencem a um time fixo.</small>
+        <strong>Goleiros em revezamento <sup>&#9432;</sup></strong
+        ><small>Estes goleiros v&#227;o se revezar entre as partidas.</small
+        ><small>Eles n&#227;o pertencem a um time fixo.</small>
       </div>
     </div>
     @for (player of goalkeepers; track player.name; let i = $index) {
       <div class="player-row">
-        <span class="rank">{{ i + 1 }}</span>
-        <span class="player-name">{{ player.name }}</span>
-        <span class="tag keeper-tag">Goleiro</span>
+        <span class="rank">{{ i + 1 }}</span
+        ><span class="player-name">{{ player.name }}</span
+        ><span class="tag keeper-tag">Goleiro</span>
       </div>
     }
-    <div class="rotation-note">⟳　Ordem de revezamento entre as partidas</div>
+    <div class="rotation-note">&#8635; Ordem de revezamento entre as partidas</div>
   </div>
-
   @for (teamPlayers of teams; track $index; let teamIndex = $index) {
     <div
       class="team-card"
@@ -43,33 +43,30 @@
       [class.team-extra]="teamIndex > 5"
     >
       <div class="team-heading">
-        <strong>♟　Time {{ teamIndex + 1 }}</strong>
-        <span>{{ teamPlayers.length }} jogadores</span>
+        <strong>Time {{ teamIndex + 1 }}</strong
+        ><span>{{ teamPlayers.length }} jogadores</span>
       </div>
       @for (player of teamPlayers; track player.name) {
         <div class="player-row">
-          <span class="round-icon">🏃</span>
-          <span class="player-name">{{ player.name }}</span>
-          <span class="tag line-tag">Linha</span>
+          <span class="round-icon" aria-hidden="true">&#9917;</span
+          ><span class="player-name">{{ player.name }}</span
+          ><span class="tag line-tag">Linha</span>
         </div>
       }
     </div>
   }
-
   <div class="result-actions">
     @if (teams.length > 0) {
       <button
         class="primary-btn share-btn"
         type="button"
-        aria-label="Copiar times"
+        aria-label="Compartilhar times"
         (click)="shareTeams()"
       >
-        <span aria-hidden="true">⤴</span>
-        Compartilhar
+        <span aria-hidden="true">&#128228;</span> Compartilhar
       </button>
     }
   </div>
-
   @if (copied) {
     <div class="copy-toast" role="status" aria-live="polite">Times copiados!</div>
   }

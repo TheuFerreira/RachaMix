@@ -1,9 +1,10 @@
 <section class="phone-screen draw-screen">
   <div class="screen-title centered">
-    <button class="back-btn" (click)="back.emit()">‹</button>
-    <h1>Sortear Times</h1>
+    <button class="back-btn" aria-label="Voltar para jogadores" (click)="back.emit()">
+      &lsaquo;
+    </button>
+    <h1>Sortear times</h1>
   </div>
-
   <div class="info-card">
     <p>Quantos jogadores por time?</p>
     <div class="number-picker">
@@ -12,7 +13,7 @@
         aria-label="Diminuir jogadores por time"
         (click)="decreasePlayersPerTeam()"
       >
-        −
+        &minus;
       </button>
       <strong>{{ playersPerTeam }}</strong>
       <button
@@ -20,23 +21,25 @@
         aria-label="Aumentar jogadores por time"
         (click)="increasePlayersPerTeam()"
       >
-        ＋
+        &plus;
       </button>
     </div>
-    <small>
-      O número de times é calculado automaticamente com base na quantidade de jogadores de linha
-      selecionados.
-    </small>
+    <small
+      >O n&#250;mero de times &#233; calculado automaticamente com base na quantidade de jogadores
+      de linha selecionados.</small
+    >
   </div>
-
   <div class="selection-card">
     <div class="card-heading keeper-color">
-      <span>🖐</span>
+      <span aria-hidden="true">&#129354;</span>
       <div>
-        <strong>Goleiros em revezamento ({{ selectedGoalkeepers }})</strong>
-        <small>Estes goleiros vão se revezar entre as partidas e não entram nos times fixos.</small>
+        <strong>Goleiros em revezamento ({{ selectedGoalkeepers }})</strong
+        ><small
+          >Estes goleiros v&#227;o se revezar entre as partidas e n&#227;o entram nos times
+          fixos.</small
+        >
       </div>
-      <span>ⓘ</span>
+      <span aria-hidden="true">&#9432;</span>
     </div>
     @for (player of goalkeepers; track player.name) {
       <button
@@ -47,22 +50,21 @@
         [attr.aria-pressed]="player.selected"
         [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
-        <span class="avatar">{{ player.initials }}</span>
-        <span class="player-name">{{ player.name }}</span>
-        <span class="tag keeper-tag">🖐 Goleiro</span>
-        <span class="check">✓</span>
+        <span class="avatar">{{ player.initials }}</span
+        ><span class="player-name">{{ player.name }}</span
+        ><span class="tag keeper-tag">&#129354; Goleiro</span
+        ><span class="check" aria-hidden="true">&#10003;</span>
       </button>
     }
   </div>
-
   <div class="selection-card">
     <div class="card-heading line-color">
-      <span>🏃</span>
+      <span aria-hidden="true">&#9917;</span>
       <div>
-        <strong>Jogadores de linha ({{ selectedLinePlayers }})</strong>
-        <small>Apenas jogadores de linha serão distribuídos nos times.</small>
+        <strong>Jogadores de linha ({{ selectedLinePlayers }})</strong
+        ><small>Apenas jogadores de linha ser&#227;o distribu&#237;dos nos times.</small>
       </div>
-      <span>ⓘ</span>
+      <span aria-hidden="true">&#9432;</span>
     </div>
     @for (player of linePlayers; track player.name) {
       <button
@@ -73,21 +75,20 @@
         [attr.aria-pressed]="player.selected"
         [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
-        <span class="avatar">{{ player.initials }}</span>
-        <span class="player-name">{{ player.name }}</span>
-        <span class="tag line-tag">🏃 Linha</span>
-        <span class="check">✓</span>
+        <span class="avatar">{{ player.initials }}</span
+        ><span class="player-name">{{ player.name }}</span
+        ><span class="tag line-tag">&#9917; Linha</span
+        ><span class="check" aria-hidden="true">&#10003;</span>
       </button>
     }
   </div>
-
   <button
     class="primary-btn draw-action"
     type="button"
     [disabled]="!canGenerate"
     (click)="generate.emit(playersPerTeam)"
   >
-    ⚒　Gerar Times Aleatórios
+    Sortear times
   </button>
   @if (generationError) {
     <p class="draw-error" role="alert">{{ generationError }}</p>
