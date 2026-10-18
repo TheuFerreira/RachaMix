@@ -4,13 +4,7 @@
   [class.keeper-section]="type === 'goalkeeper'"
 >
   <div class="group-heading">
-    <span class="player-type-icon" aria-hidden="true">
-      @if (type === 'line') {
-        &#x1F3C3;
-      } @else {
-        &#x1F590;
-      }
-    </span>
+    <span>{{ icon }}</span>
     <strong>{{ title }} ({{ total }})</strong>
     <span>›</span>
   </div>
@@ -31,14 +25,7 @@
         [class.line-tag]="type === 'line'"
         [class.keeper-tag]="type === 'goalkeeper'"
       >
-        <span class="player-type-icon" aria-hidden="true">
-          @if (type === 'line') {
-            &#x1F3C3;
-          } @else {
-            &#x1F590;
-          }
-        </span>
-        {{ typeLabel }}
+        {{ icon }} {{ typeLabel }}
       </span>
       <button
         type="button"

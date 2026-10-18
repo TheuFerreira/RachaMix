@@ -1,6 +1,6 @@
 <section class="phone-screen players-screen">
   <div class="screen-title">
-    <div class="title-icon">⚽</div>
+    <div class="title-icon">&#9917;</div>
     <h1>Jogadores</h1>
     <button
       class="icon-btn"
@@ -8,7 +8,7 @@
       title="Importar jogadores"
       (click)="importPlayers.emit()"
     >
-      ⚙
+      &#9881;
     </button>
   </div>
   <div class="segmented">
@@ -24,7 +24,7 @@
   </div>
   <div class="search-row">
     <div class="search-box">
-      🔍
+      &#128269;
       <input [(ngModel)]="search" placeholder="Buscar jogador..." aria-label="Buscar jogador" />
     </div>
   </div>
@@ -32,7 +32,7 @@
   @if (activeSection === 'all' || activeSection === 'line') {
     <app-player-section
       title="Jogadores de linha"
-      icon="🏃"
+      icon="&#x1F3C3;"
       type="line"
       [players]="filteredLinePlayers"
       [total]="linePlayers.length"
@@ -44,7 +44,7 @@
   @if (activeSection === 'all' || activeSection === 'goalkeeper') {
     <app-player-section
       title="Goleiros"
-      icon="🖐"
+      icon="&#x1F590;"
       type="goalkeeper"
       [players]="filteredGoalkeepers"
       [total]="goalkeepers.length"
@@ -78,5 +78,5 @@
     </div>
   }
 
-  <button class="primary-btn add-player" (click)="add.emit()">＋　Adicionar jogador</button>
+  <button class="primary-btn add-player" (click)="add.emit()">Adicionar jogador</button>
 </section>
