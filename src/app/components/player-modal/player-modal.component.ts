@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Player, PlayerType } from '../../models';
+import { getPlayerNameError } from '../../player-utils';
 
 export interface PlayerFormValue {
   name: string;
@@ -35,15 +36,7 @@ export class PlayerModalComponent implements AfterViewInit, OnChanges {
   }
 
   get nameError(): string {
-    const normalizedName = this.name.trim().toLocaleLowerCase();
-    if (normalizedName.length > 0 && normalizedName.length < 2) {
-      return 'Digite pelo menos 2 caracteres.';
-    }
-
-    const duplicated = this.existingPlayers.some((player) =>
-      player !== this.player && player.name.trim().toLocaleLowerCase() === normalizedName
-    );
-    return duplicated ? 'Já existe um jogador com esse nome.' : '';
+    return getPlayerNameError(this.name, this.existingPlayers, this.player);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

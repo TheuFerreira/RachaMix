@@ -5,6 +5,7 @@ import { DrawPageComponent } from './pages/draw/draw-page.component';
 import { ResultsPageComponent } from './pages/results/results-page.component';
 import { Player, Tab } from './models';
 import { PlayerFormValue, PlayerModalComponent } from './components/player-modal/player-modal.component';
+import { getPlayerInitials } from './player-utils';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,7 @@ export class AppComponent {
   addPlayer(form: PlayerFormValue): void {
     this.players = [
       ...this.players,
-      { name: form.name, initials: this.getInitials(form.name), type: form.type, selected: true }
+      { name: form.name, initials: getPlayerInitials(form.name), type: form.type, selected: true }
     ];
   }
 
@@ -62,19 +63,9 @@ export class AppComponent {
     }
 
     this.players = this.players.map((player) => player === this.editingPlayer
-      ? { ...player, name: form.name, initials: this.getInitials(form.name), type: form.type }
+      ? { ...player, name: form.name, initials: getPlayerInitials(form.name), type: form.type }
       : player);
     this.closeEditPlayerModal();
-  }
-
-  private getInitials(name: string): string {
-    return name
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((part) => part[0])
-      .join('')
-      .toUpperCase();
   }
 
   generateDraw(playersPerTeam: number): void {
