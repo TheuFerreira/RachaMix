@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import type { Player, PlayerType } from './models';
 import { getPlayerInitials } from './player-utils';
 import { AppStorageService } from './app-storage.service';
@@ -24,7 +24,9 @@ export class PlayerService {
   private playerList: Player[];
 
   constructor(private readonly storage: AppStorageService) {
-    this.playerList = this.storage.loadPlayers(this.defaultPlayers);
+    this.playerList = isDevMode()
+      ? this.defaultPlayers
+      : this.storage.loadPlayers(this.defaultPlayers);
   }
 
   get players(): Player[] {
