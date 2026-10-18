@@ -18,6 +18,7 @@ export class PlayerSectionComponent {
   @Input({ required: true }) total = 0;
   @Input() collapsible = true;
   @Output() remove = new EventEmitter<Player>();
+  @Output() edit = new EventEmitter<Player>();
 
   showAll = false;
 

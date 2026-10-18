@@ -29,6 +29,11 @@ export class AppComponent {
   isPlayerTypeMenuOpen = false;
   newPlayerName = '';
   newPlayerType: PlayerType = 'line';
+  isEditPlayerModalOpen = false;
+  isEditPlayerTypeMenuOpen = false;
+  editingPlayer: Player | null = null;
+  editPlayerName = '';
+  editPlayerType: PlayerType = 'line';
 
   setTab(tab: Tab): void { this.activeTab = tab; }
 
@@ -44,6 +49,20 @@ export class AppComponent {
     this.isPlayerTypeMenuOpen = false;
   }
 
+  openEditPlayerModal(player: Player): void {
+    this.editingPlayer = player;
+    this.editPlayerName = player.name;
+    this.editPlayerType = player.type;
+    this.isEditPlayerTypeMenuOpen = false;
+    this.isEditPlayerModalOpen = true;
+  }
+
+  closeEditPlayerModal(): void {
+    this.isEditPlayerModalOpen = false;
+    this.isEditPlayerTypeMenuOpen = false;
+    this.editingPlayer = null;
+  }
+
   togglePlayerTypeMenu(): void {
     this.isPlayerTypeMenuOpen = !this.isPlayerTypeMenuOpen;
   }
@@ -51,6 +70,15 @@ export class AppComponent {
   selectPlayerType(type: PlayerType): void {
     this.newPlayerType = type;
     this.isPlayerTypeMenuOpen = false;
+  }
+
+  toggleEditPlayerTypeMenu(): void {
+    this.isEditPlayerTypeMenuOpen = !this.isEditPlayerTypeMenuOpen;
+  }
+
+  selectEditPlayerType(type: PlayerType): void {
+    this.editPlayerType = type;
+    this.isEditPlayerTypeMenuOpen = false;
   }
 
   addPlayer(): void {
@@ -66,6 +94,18 @@ export class AppComponent {
     this.newPlayerName = '';
     this.newPlayerType = 'line';
     this.isPlayerTypeMenuOpen = false;
+  }
+
+  saveEditedPlayer(): void {
+    const name = this.editPlayerName.trim();
+    if (!this.editingPlayer || name.length < 2) {
+      return;
+    }
+
+    this.players = this.players.map((player) => player === this.editingPlayer
+      ? { ...player, name, initials: this.getInitials(name), type: this.editPlayerType }
+      : player);
+    this.closeEditPlayerModal();
   }
 
   private getInitials(name: string): string {

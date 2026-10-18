@@ -10,7 +10,7 @@
   </div>
 
   @for (player of visiblePlayers; track player.name) {
-    <div class="player-row">
+    <div class="player-row" role="button" tabindex="0" (click)="edit.emit(player)" (keyup.enter)="edit.emit(player)">
       <span class="avatar">{{ player.initials }}</span>
       <span class="player-name">{{ player.name }}</span>
       <span
@@ -25,9 +25,11 @@
         class="row-action delete-action"
         aria-label="Excluir jogador"
         title="Excluir jogador"
-        (click)="remove.emit(player)"
+        (click)="$event.stopPropagation(); remove.emit(player)"
       >
-        ×
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3 5.5h10M6 5.5V4h4v1.5M5 7v5.5h6V7M7 8.5v2.5M9 8.5v2.5" />
+        </svg>
       </button>
       <span class="row-action">♠</span>
     </div>

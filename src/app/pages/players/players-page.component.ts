@@ -15,6 +15,7 @@ import { PlayerSectionComponent } from './player-section.component';
 export class PlayersPageComponent {
   @Input({ required: true }) players: Player[] = [];
   @Output() add = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<Player>();
 
   search = '';
   activeSection: 'all' | 'line' | 'goalkeeper' = 'all';
