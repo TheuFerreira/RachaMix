@@ -15,7 +15,9 @@
     @if (activeTab === "draw") {
       <app-draw-page
         [players]="players"
+        [playersPerTeam]="playersPerTeam"
         (back)="setTab('players')"
+        (playersPerTeamChange)="playersPerTeam = $event"
         (generate)="generateDraw($event); setTab('history')"
       />
     }

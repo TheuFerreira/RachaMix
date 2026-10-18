@@ -9,12 +9,12 @@
     <div class="number-picker">
       <button
         type="button"
-        (click)="playersPerTeam = playersPerTeam > 2 ? playersPerTeam - 1 : 2"
+        (click)="decreasePlayersPerTeam()"
       >
         −
       </button>
       <strong>{{ playersPerTeam }}</strong>
-      <button type="button" (click)="playersPerTeam = playersPerTeam + 1">
+      <button type="button" (click)="increasePlayersPerTeam()">
         ＋
       </button>
     </div>

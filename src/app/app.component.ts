@@ -23,7 +23,7 @@ export class AppComponent {
   ];
   drawnTeams: Player[][] = [];
   drawnGoalkeepers: Player[] = [];
-  playersPerTeam = 2;
+  playersPerTeam = 4;
 
   setTab(tab: Tab): void { this.activeTab = tab; }
 
