@@ -1,24 +1,30 @@
 <div class="modal-backdrop" (click)="close()">
   <section
     #modal
-    class="player-modal"
+    class="player-modal app-modal rounded-4 p-4"
     role="dialog"
     aria-modal="true"
     [attr.aria-labelledby]="isEditMode ? 'edit-player-title' : 'add-player-title'"
     (click)="$event.stopPropagation()"
     (keydown)="handleKeydown($event)"
   >
-    <div class="modal-header">
+    <div class="modal-header d-flex align-items-center justify-content-between gap-3">
       <h2 [id]="isEditMode ? 'edit-player-title' : 'add-player-title'">
         {{ isEditMode ? 'Editar jogador' : 'Adicionar jogador' }}
       </h2>
-      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">
+      <button
+        type="button"
+        class="modal-close btn p-0 flex-shrink-0"
+        aria-label="Fechar"
+        (click)="close()"
+      >
         &times;
       </button>
     </div>
 
     <label for="player-modal-name">Nome</label>
     <input
+      class="form-control"
       id="player-modal-name"
       type="text"
       #nameInput
@@ -38,7 +44,7 @@
       <button
         id="player-modal-type"
         type="button"
-        class="select-trigger"
+        class="select-trigger btn w-100 d-flex align-items-center justify-content-between text-start"
         [class.open]="isTypeMenuOpen"
         [attr.aria-expanded]="isTypeMenuOpen"
         aria-haspopup="listbox"
@@ -81,11 +87,11 @@
       }
     </div>
 
-    <div class="modal-actions">
-      <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
+    <div class="modal-actions d-flex justify-content-end gap-2">
+      <button type="button" class="secondary-btn btn" (click)="close()">Cancelar</button>
       <button
         type="button"
-        class="primary-btn"
+        class="primary-btn btn"
         [disabled]="name.trim().length < 2 || !!nameError"
         (click)="save()"
       >

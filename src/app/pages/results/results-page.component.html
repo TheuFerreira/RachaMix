@@ -13,8 +13,8 @@
       &#x27F3;
     </button>
   </div>
-  <div class="rotation-card">
-    <div class="card-heading keeper-color">
+  <div class="rotation-card app-card rounded-3 mb-2 overflow-hidden pb-1">
+    <div class="card-heading keeper-color d-flex align-items-center gap-2 px-3 py-2">
       <div>
         <strong>Goleiros em revezamento</strong
         ><small>Estes goleiros v&#227;o se revezar entre as partidas.</small
@@ -22,10 +22,10 @@
       </div>
     </div>
     @for (player of goalkeepers; track player.name; let i = $index) {
-      <div class="player-row">
+      <div class="player-row app-player-row d-flex align-items-center gap-2 px-2 py-1">
         <span class="rank">{{ i + 1 }}</span
-        ><span class="player-name">{{ player.name }}</span
-        ><span class="tag keeper-tag">Goleiro</span>
+        ><span class="player-name app-player-name flex-grow-1">{{ player.name }}</span
+        ><span class="tag app-tag keeper-tag rounded-2">Goleiro</span>
       </div>
     }
     <div class="rotation-note">Ordem de revezamento entre as partidas</div>
@@ -46,10 +46,10 @@
         ><span>{{ teamPlayers.length }} jogadores</span>
       </div>
       @for (player of teamPlayers; track player.name; let playerIndex = $index) {
-        <div class="player-row">
+        <div class="player-row app-player-row d-flex align-items-center gap-2 px-2 py-1">
           <span class="round-icon">{{ playerIndex + 1 }}</span
-          ><span class="player-name">{{ player.name }}</span
-          ><span class="tag line-tag">Linha</span>
+          ><span class="player-name app-player-name flex-grow-1">{{ player.name }}</span
+          ><span class="tag app-tag line-tag rounded-2">Linha</span>
         </div>
       }
     </div>

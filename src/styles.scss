@@ -28,6 +28,47 @@ button,
 input {
   font: inherit;
 }
+
+.app-player-row {
+  min-height: 36px;
+  border-top: 1px solid #1b292f;
+  font-size: 10px;
+}
+
+.app-avatar {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  background: linear-gradient(145deg, #717988, #303640);
+  color: #edf1f2;
+  font-size: 11px;
+}
+
+.app-player-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-tag {
+  padding: 5px 7px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.app-card {
+  background: linear-gradient(145deg, #121d23, #0c1418);
+  border: 1px solid #1c2a30;
+}
+
+.app-modal {
+  border: 1px solid #263940;
+  background: linear-gradient(145deg, #142229, #0b151a);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
 button {
   border: 0;
   color: inherit;

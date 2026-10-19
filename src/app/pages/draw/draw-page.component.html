@@ -5,9 +5,9 @@
     </button>
     <h1>Sortear times</h1>
   </div>
-  <div class="info-card">
+  <div class="info-card app-card rounded-3 mb-2 p-3">
     <p>Quantos jogadores por time?</p>
-    <div class="number-picker">
+    <div class="number-picker d-flex align-items-center gap-2">
       <button
         type="button"
         aria-label="Diminuir jogadores por time"
@@ -15,7 +15,7 @@
       >
         &minus;
       </button>
-      <strong>{{ playersPerTeam }}</strong>
+      <strong class="flex-grow-1">{{ playersPerTeam }}</strong>
       <button
         type="button"
         aria-label="Aumentar jogadores por time"
@@ -29,8 +29,8 @@
       de linha selecionados.</small
     >
   </div>
-  <div class="selection-card">
-    <div class="card-heading keeper-color">
+  <div class="selection-card app-card rounded-3 mb-2 overflow-hidden pb-1">
+    <div class="card-heading keeper-color d-flex align-items-center gap-2 px-3 py-2">
       <span aria-hidden="true">{{ goalkeeperIcon }}</span>
       <div>
         <strong>Goleiros em revezamento ({{ selectedGoalkeepers }})</strong
@@ -44,21 +44,21 @@
     @for (player of goalkeepers; track player.name) {
       <button
         type="button"
-        class="player-row"
+        class="player-row app-player-row d-flex align-items-center gap-2 w-100 px-2 py-1 border-0 btn text-start"
         [class.player-selected]="player.selected"
         (click)="togglePlayer(player)"
         [attr.aria-pressed]="player.selected"
         [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
-        <span class="avatar">{{ player.initials }}</span
-        ><span class="player-name">{{ player.name }}</span
-        ><span class="tag keeper-tag">{{ goalkeeperIcon }} Goleiro</span
+        <span class="avatar app-avatar rounded-circle">{{ player.initials }}</span
+        ><span class="player-name app-player-name flex-grow-1">{{ player.name }}</span
+        ><span class="tag app-tag keeper-tag rounded-2">{{ goalkeeperIcon }} Goleiro</span
         ><span class="check" aria-hidden="true">&#10003;</span>
       </button>
     }
   </div>
-  <div class="selection-card">
-    <div class="card-heading line-color">
+  <div class="selection-card app-card rounded-3 mb-2 overflow-hidden pb-1">
+    <div class="card-heading line-color d-flex align-items-center gap-2 px-3 py-2">
       <span aria-hidden="true">{{ lineIcon }}</span>
       <div>
         <strong>Jogadores de linha ({{ selectedLinePlayers }})</strong
@@ -69,15 +69,15 @@
     @for (player of linePlayers; track player.name) {
       <button
         type="button"
-        class="player-row"
+        class="player-row app-player-row d-flex align-items-center gap-2 w-100 px-2 py-1 border-0 btn text-start"
         [class.player-selected]="player.selected"
         (click)="togglePlayer(player)"
         [attr.aria-pressed]="player.selected"
         [attr.aria-label]="(player.selected ? 'Desmarcar ' : 'Marcar ') + player.name"
       >
-        <span class="avatar">{{ player.initials }}</span
-        ><span class="player-name">{{ player.name }}</span
-        ><span class="tag line-tag">{{ lineIcon }} Linha</span
+        <span class="avatar app-avatar rounded-circle">{{ player.initials }}</span
+        ><span class="player-name app-player-name flex-grow-1">{{ player.name }}</span
+        ><span class="tag app-tag line-tag rounded-2">{{ lineIcon }} Linha</span
         ><span class="check" aria-hidden="true">&#10003;</span>
       </button>
     }

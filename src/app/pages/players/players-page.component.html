@@ -11,19 +11,31 @@
       &#9881;
     </button>
   </div>
-  <div class="segmented">
-    <button [class.active]="activeSection === 'all'" (click)="setSection('all')">
+  <div class="segmented d-flex gap-1 mb-2">
+    <button
+      class="btn flex-grow-1"
+      [class.active]="activeSection === 'all'"
+      (click)="setSection('all')"
+    >
       Todos <b>({{ players.length }})</b>
     </button>
-    <button [class.active]="activeSection === 'line'" (click)="setSection('line')">
+    <button
+      class="btn flex-grow-1"
+      [class.active]="activeSection === 'line'"
+      (click)="setSection('line')"
+    >
       Linha <b>({{ linePlayers.length }})</b>
     </button>
-    <button [class.active]="activeSection === 'goalkeeper'" (click)="setSection('goalkeeper')">
+    <button
+      class="btn flex-grow-1"
+      [class.active]="activeSection === 'goalkeeper'"
+      (click)="setSection('goalkeeper')"
+    >
       Goleiros <b>({{ goalkeepers.length }})</b>
     </button>
   </div>
   <div class="search-row">
-    <div class="search-box">
+    <div class="search-box d-flex align-items-center gap-2">
       &#128269;
       <input [(ngModel)]="search" placeholder="Buscar jogador..." aria-label="Buscar jogador" />
     </div>
@@ -68,15 +80,17 @@
           Tem certeza que deseja excluir <strong>{{ playerPendingRemoval.name }}</strong
           >?
         </p>
-        <div class="remove-actions">
-          <button type="button" class="secondary-btn" (click)="cancelRemovePlayer()">
+        <div class="remove-actions d-flex justify-content-end gap-2">
+          <button type="button" class="secondary-btn btn" (click)="cancelRemovePlayer()">
             Cancelar
           </button>
-          <button type="button" class="danger-btn" (click)="confirmRemovePlayer()">Excluir</button>
+          <button type="button" class="danger-btn btn" (click)="confirmRemovePlayer()">
+            Excluir
+          </button>
         </div>
       </section>
     </div>
   }
 
-  <button class="primary-btn add-player" (click)="add.emit()">Adicionar jogador</button>
+  <button class="primary-btn add-player btn w-100" (click)="add.emit()">Adicionar jogador</button>
 </section>

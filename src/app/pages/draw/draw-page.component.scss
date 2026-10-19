@@ -2,18 +2,7 @@
   display: block;
 }
 
-.info-card,
-.selection-card {
-  background: linear-gradient(145deg, #121d23, #0c1418);
-  border: 1px solid #1c2a30;
-  border-radius: 11px;
-  margin-bottom: 9px;
-  overflow: hidden;
-}
-
 .info-card {
-  padding: 11px;
-
   p {
     font-size: 11px;
     margin: 0 0 8px;
@@ -28,10 +17,6 @@
 }
 
 .number-picker {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-
   button {
     width: 42px;
     height: 37px;
@@ -51,15 +36,7 @@
   }
 }
 
-.selection-card {
-  padding-bottom: 4px;
-}
-
 .card-heading {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 11px;
   font-size: 12px;
 
   strong {
@@ -83,13 +60,6 @@
 }
 
 .player-row {
-  width: 100%;
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 9px;
-  border-top: 1px solid #1b292f;
   background: transparent;
   text-align: left;
   font-size: 10px;
@@ -107,23 +77,6 @@
 .player-selected {
   opacity: 1;
   background: #10251d;
-}
-.avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, #717988, #303640);
-  font-size: 11px;
-  color: #edf1f2;
-}
-.player-name {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .tag {
   border-radius: 8px;

@@ -1,27 +1,27 @@
 <div
-  class="player-group"
+  class="player-group app-card rounded-3 mb-2 overflow-hidden"
   [class.line-section]="type === 'line'"
   [class.keeper-section]="type === 'goalkeeper'"
 >
-  <div class="group-heading">
+  <div class="group-heading d-flex align-items-center gap-2 px-3 py-2">
     <span class="player-type-icon" aria-hidden="true">{{ typeIcon }}</span>
-    <strong>{{ title }} ({{ total }})</strong>
+    <strong class="flex-grow-1">{{ title }} ({{ total }})</strong>
     <span>›</span>
   </div>
 
   @for (player of visiblePlayers; track player.name) {
     <div
-      class="player-row"
+      class="player-row app-player-row d-flex align-items-center gap-2 w-100 px-2 py-1 border-0"
       role="button"
       tabindex="0"
       [attr.aria-label]="'Editar jogador ' + player.name"
       (click)="edit.emit(player)"
       (keydown)="activatePlayer($event, player)"
     >
-      <span class="avatar">{{ player.initials }}</span>
-      <span class="player-name">{{ player.name }}</span>
+      <span class="avatar app-avatar rounded-circle">{{ player.initials }}</span>
+      <span class="player-name app-player-name flex-grow-1">{{ player.name }}</span>
       <span
-        class="tag"
+        class="tag app-tag rounded-2"
         [class.line-tag]="type === 'line'"
         [class.keeper-tag]="type === 'goalkeeper'"
       >
@@ -30,7 +30,7 @@
       </span>
       <button
         type="button"
-        class="row-action delete-action"
+        class="row-action delete-action btn p-0"
         aria-label="Excluir jogador"
         title="Excluir jogador"
         (click)="$event.stopPropagation(); remove.emit(player)"
@@ -43,7 +43,12 @@
   }
 
   @if (collapsible && players.length > 5) {
-    <button type="button" class="see-all" [attr.aria-expanded]="showAll" (click)="toggleExpanded()">
+    <button
+      type="button"
+      class="see-all btn w-100 py-2"
+      [attr.aria-expanded]="showAll"
+      (click)="toggleExpanded()"
+    >
       {{ showAll ? 'Ver menos' : 'Ver todos' }} ({{ players.length }})
       <span>{{ showAll ? '⌃' : '⌄' }}</span>
     </button>

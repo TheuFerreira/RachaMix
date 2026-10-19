@@ -1,24 +1,30 @@
 <div class="modal-backdrop" (click)="close()">
   <section
     #modal
-    class="import-modal"
+    class="import-modal app-modal rounded-4 p-4"
     role="dialog"
     aria-modal="true"
     aria-labelledby="import-players-title"
     (click)="$event.stopPropagation()"
     (keydown)="handleKeydown($event)"
   >
-    <div class="modal-header">
+    <div class="modal-header d-flex align-items-start justify-content-between gap-3">
       <div>
         <h2 id="import-players-title">Importar jogadores</h2>
         <p>Digite um nome por linha. Todos ser&#227;o cadastrados como jogadores de linha.</p>
       </div>
-      <button type="button" class="modal-close" aria-label="Fechar" (click)="close()">
+      <button
+        type="button"
+        class="modal-close btn p-0 flex-shrink-0"
+        aria-label="Fechar"
+        (click)="close()"
+      >
         &times;
       </button>
     </div>
     <label for="players-list">Lista de nomes</label>
     <textarea
+      class="form-control"
       id="players-list"
       [(ngModel)]="names"
       placeholder="Pedro Silva&#10;Lucas Souza&#10;Maria Clara"
@@ -35,9 +41,14 @@
         }}.
       }
     </small>
-    <div class="modal-actions">
-      <button type="button" class="secondary-btn" (click)="close()">Cancelar</button>
-      <button type="button" class="primary-btn" [disabled]="importedCount === 0" (click)="import()">
+    <div class="modal-actions d-flex justify-content-end gap-2">
+      <button type="button" class="secondary-btn btn" (click)="close()">Cancelar</button>
+      <button
+        type="button"
+        class="primary-btn btn"
+        [disabled]="importedCount === 0"
+        (click)="import()"
+      >
         Importar
       </button>
     </div>
