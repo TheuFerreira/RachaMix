@@ -1,0 +1,19 @@
+{
+  "name": "RachaMix",
+  "short_name": "RachaMix",
+  "description": "Organize jogadores e sorteie times com facilidade.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#071015",
+  "theme_color": "#071015",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

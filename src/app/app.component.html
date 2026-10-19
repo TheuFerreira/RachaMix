@@ -6,6 +6,17 @@
       <strong>Seu jogo, do seu jeito.</strong>
     </div>
     <button class="icon-btn" aria-label="Configurações">⚙</button>
+    @if (showInstallAction) {
+      <button
+        class="icon-btn install-btn"
+        type="button"
+        aria-label="Instalar RachaMix"
+        title="Instalar RachaMix"
+        (click)="installApp()"
+      >
+        &#x2B07;
+      </button>
+    }
   </header>
 
   <section class="screen-grid">

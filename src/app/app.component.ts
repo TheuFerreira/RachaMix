@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayersPageComponent } from './pages/players/players-page.component';
 import { DrawPageComponent } from './pages/draw/draw-page.component';
@@ -10,6 +10,11 @@ import { PlayerService } from './player.service';
 import { ImportPlayersModalComponent } from './components/import-players-modal/import-players-modal.component';
 import { drawTeams, shufflePlayers } from './draw-utils';
 import { AppStorageService } from './app-storage.service';
+
+interface InstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 @Component({
   selector: 'app-root',
@@ -29,12 +34,14 @@ export class AppComponent {
   constructor(
     private readonly playerService: PlayerService,
     private readonly storage: AppStorageService,
+    private readonly changeDetector: ChangeDetectorRef,
   ) {
     this.players = this.playerService.players;
     const savedDraw = this.storage.loadDrawState();
     this.playersPerTeam = savedDraw.playersPerTeam;
     this.drawnTeams = savedDraw.drawnTeams;
     this.drawnGoalkeepers = savedDraw.drawnGoalkeepers;
+    this.setupInstallPrompt();
   }
 
   activeTab: Tab = 'players';
@@ -46,6 +53,9 @@ export class AppComponent {
   isEditPlayerModalOpen = false;
   isImportPlayersModalOpen = false;
   editingPlayer: Player | null = null;
+  showInstallAction = false;
+
+  private installPrompt: InstallPromptEvent | null = null;
 
   setTab(tab: Tab): void {
     this.activeTab = tab;
@@ -136,6 +146,48 @@ export class AppComponent {
 
   redraw(): void {
     this.generateDraw(this.playersPerTeam);
+  }
+
+  async installApp(): Promise<void> {
+    if (!this.installPrompt) {
+      window.alert(
+        'Para instalar no iPhone ou iPad, abra o menu Compartilhar do Safari e escolha “Adicionar à Tela de Início”.',
+      );
+      return;
+    }
+
+    await this.installPrompt.prompt();
+    await this.installPrompt.userChoice;
+    this.installPrompt = null;
+    this.showInstallAction = false;
+    this.changeDetector.markForCheck();
+  }
+
+  private setupInstallPrompt(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    this.showInstallAction = isIos && !isStandalone;
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => undefined);
+    }
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      this.installPrompt = event as InstallPromptEvent;
+      this.showInstallAction = true;
+      this.changeDetector.markForCheck();
+    });
+
+    window.addEventListener('appinstalled', () => {
+      this.installPrompt = null;
+      this.showInstallAction = false;
+      this.changeDetector.markForCheck();
+    });
   }
 
   private persistState(): void {
